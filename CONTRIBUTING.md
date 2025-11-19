@@ -20,7 +20,7 @@ Recognize the best in others
 Show empathy towards community members
 Each contributor should avoid behaviours such as:
 
-Sexualized language and unwanted sexual attention/advances
+- Sexualized language and unwanted sexual attention/advances
 Trolling, insults, derogatory comments, and political attacks
 Public or private harassment
 Ignoring privacy concerns of the community
