@@ -18,4 +18,4 @@ Each contributor should avoid behaviours such as:
 - And other conduct which could reasonably be considered inappropriate in a professional setting
 
 ## Enforcement
-Any behaviour, comments, and acions that infringe upon this code of conduct shall be reported to the intructor and they will 
+Any behaviour, comments, and acions that infringe upon this code of conduct shall be reported to the intructor and they will respond in a way they deem appropriate to the circumstances. The project contributors shall maintain confidentiality with regard to the reporter of an incident.
