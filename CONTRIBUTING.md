@@ -12,4 +12,16 @@ Key points include:
 - We will be using Docstring for documentation.
 - We use pytest (assert). Contributions with test cases included will be easier to accept since we can check erros better.
 ## : Code of Conduct <br>
--  
+-  Each contributor shall adhere to the examples set below:
+Use welcoming and inclusive language
+Be respectful of differing opinions and viewpoints
+Be cognizant of intention when proivding constructive criticism
+Recognize the best in others
+Show empathy towards community members
+Each contributor should avoid behaviours such as:
+
+Sexualized language and unwanted sexual attention/advances
+Trolling, insults, derogatory comments, and political attacks
+Public or private harassment
+Ignoring privacy concerns of the community
+And other conduct which could reasonably be considered inappropriate in a professional setting
