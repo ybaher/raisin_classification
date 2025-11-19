@@ -1,4 +1,4 @@
-## Coding style: <br>
+## Coding style <br>
 Consistency in coding style is important throughout the project. We recommend following the official Python style guide (PEP 8).
 Key points include:
 - Indentation: Use consistent tabs or spaces to maintain readability.
