@@ -1,13 +1,10 @@
-name: base
+name: craisins
 channels:
   - conda-forge
 dependencies:
-  - python=3.12
-  - conda=25.7.0
-  - mamba=2.1.1
-  - pip
-  - miniforge_console_shortcut=1
-  - numpy
-  - altair
+  - python=3.9
   - pandas
-prefix: C:\Users\eric_\miniforge3
+  - altair
+  - numpy
+  - pip:
+      - kaggle==1.7.4.5
