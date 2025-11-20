@@ -8,5 +8,4 @@ dependencies:
   - numpy
   - ipykernel
   - pip:
-      - kaggle==1.7.4.5
       - ucimlrepo
