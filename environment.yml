@@ -10,5 +10,4 @@ dependencies:
   - scikit-learn
   - matplotlib
   - pip:
-      - kaggle==1.7.4.5
       - ucimlrepo
