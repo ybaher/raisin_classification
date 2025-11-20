@@ -7,5 +7,6 @@ dependencies:
   - altair
   - numpy
   - ipykernel
+  - scikit-learn
   - pip:
       - ucimlrepo
