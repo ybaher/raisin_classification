@@ -8,24 +8,34 @@ Analyzing images of raisins in order to classify them as Kecimen or Besni variet
 
 ## Usage
 
+Follow the instructions below to reproduce the analysis.
+
+# Setup
+
 1. Clone this GitHub repository
-
-ADD MORE HERE!
-
+2. To run the scripts in this repository, we recommend using the provided environment:
+```python
+   conda env create -f environment.yml
+```
 ## Report
 
-ADD LINK TO REPORT HERE
+The final report can be found at this [link](https://github.com/ybaher/raisin_classification/blob/main/crazy_raisins.ipynb).
 
 ## Dependencies
 
-- python=3.9
-- pandas
-- altair
-- numpy
-- ipykernel
-- scikit-learn
-- pip:
-  - ucimlrepo
+name: craisins
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pandas
+  - altair
+  - numpy
+  - ipykernel
+  - scikit-learn
+  - matplotlib
+  - pip:
+      - ucimlrepo
 
 ## License
 
