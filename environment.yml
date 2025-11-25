@@ -11,4 +11,4 @@ dependencies:
   - matplotlib=3.9.1
   - conda-lock=3.0.4
   - pip:
-      - ucimlrepo=0.0.7
+      - ucimlrepo==0.0.7
