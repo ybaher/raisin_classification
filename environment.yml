@@ -3,11 +3,12 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
-  - pandas
-  - altair
-  - numpy
-  - ipykernel
-  - scikit-learn
-  - matplotlib
+  - pandas=2.3.1
+  - altair=5.5.0
+  - numpy=2.0.2
+  - ipykernel=6.30.1
+  - scikit-learn=1.6.1
+  - matplotlib=3.9.1
+  - conda-lock=3.0.4
   - pip:
-      - ucimlrepo
+      - ucimlrepo=0.0.7
