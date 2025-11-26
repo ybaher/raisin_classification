@@ -10,5 +10,7 @@ dependencies:
   - scikit-learn=1.6.1
   - matplotlib=3.9.1
   - conda-lock=3.0.4
+  - mamba
+  - conda
   - pip:
-      - ucimlrepo=0.0.7
+      - ucimlrepo==0.0.7
