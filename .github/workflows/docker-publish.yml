@@ -32,8 +32,7 @@ jobs:
         with:
           images: ybaher/raisin-classification:0307886
           tags: |
-            type=raw, value={{sha}},enable=${{github.ref_type != 'tag' }}
-            type=raw, value=latest
+            latest
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
