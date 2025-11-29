@@ -32,7 +32,7 @@ jobs:
         with:
           images: ybaher/raisin-classification
           tags: |
-            latest
+            0307886
             
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
