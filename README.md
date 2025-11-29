@@ -10,13 +10,104 @@ Analyzing images of raisins in order to classify them as Kecimen or Besni variet
 
 Follow the instructions below to reproduce the analysis.
 
-# Setup
+## Setup
 
-1. Clone this GitHub repository
-2. To run the scripts in this repository, we recommend using the provided environment:
-```python
-   conda env create -f environment.yml
+To ensure reproducibility, the entire project now runs inside a Docker container, replacing the need for local conda environments or local Python installations.
+
+Follow the steps below to build, run, and update the project environment.
+
+### 1. Prerequisites
+
+   Before running the analysis, install:
+
+- Docker Desktop: <https://www.docker.com/products/docker-desktop>
+- (Optional) conda-lock if you plan to update the environment locally.
+
+### 2. Reproducible Environment Workflow
+
+- environment.yml → conda-lock.yml → Dockerfile → Docker image
+
+If you update the dependencies in `environment.yml`, regenerate the lockfile:
+
+```bash
+conda-lock -k explicit --file environment.yml -p linux-64
 ```
+
+Commit the updated `conda-lock.yml`.
+
+### 3. Build the Docker Image
+
+To build the container locally, run:
+
+```bash
+docker build -t <dockerhub_username>/<image_name>:latest .
+```
+
+This reads from `conda-lock.yml` to create a fully pinned computational environment.
+
+### 4. Run the Container
+
+```bash
+docker run -it --rm \
+    -p 8888:8888 \
+    -v $(pwd):/home/jovyan/work \
+    <dockerhub_username>/<image_name>:latest
+```
+
+Then open Jupyter in your browser:
+
+``` text
+http://localhost:8888
+```
+
+Your project files inside the repository will appear in the container at:
+
+```arduino
+/home/jovyan/work
+```
+
+### 5. GitHub Actions: Automate Image Publishing
+
+This repository includes a workflow that automatically:
+
+- Builds the Docker image
+- Pushes it to DockerHub
+- Tags it as latest
+- Ensures a stable, shared environment for all team members
+
+To enable this, the following GitHub Secrets must be configured:
+
+- DOCKER_USERNAME
+- DOCKER_PASSWORD
+
+Once configured, images are automatically published whenever changes are pushed to main.
+
+### 6. Using the Published Image
+
+Anyone can pull the published image using:
+
+```bash
+docker pull <dockerhub_username>/<image_name>:latest
+```
+
+### 7. Running the Full Analysis Pipeline
+
+Once inside the container, run the pipeline with:
+
+```bash
+make all
+```
+
+This performs:
+
+- Data loading
+- Data validation checks
+- Preprocessing
+- Modeling
+- Report rendering
+
+All steps will run identically on any machine.
+
 ## Report
 
 The final report can be found at this [link](https://github.com/ybaher/raisin_classification/blob/main/crazy_raisins.ipynb).
@@ -25,17 +116,18 @@ The final report can be found at this [link](https://github.com/ybaher/raisin_cl
 
 name: craisins
 channels:
-  - conda-forge
-dependencies:
-  - python=3.9
-  - pandas
-  - altair
-  - numpy
-  - ipykernel
-  - scikit-learn
-  - matplotlib
-  - pip:
-      - ucimlrepo
+
+- conda-forge
+  dependencies:
+- python=3.9
+- pandas
+- altair
+- numpy
+- ipykernel
+- scikit-learn
+- matplotlib
+- pip:
+  - ucimlrepo
 
 ## License
 
@@ -50,12 +142,12 @@ MIT license. See [the license file](LICENSE.md) for more information.
 
 Olmo-Cunillera, Alexandra et al. “Is Eating Raisins Healthy?.” Nutrients vol. 12,1 54. 24 Dec. 2019, doi:10.3390/nu12010054
 
-Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). https://doi.org/10.1186/s12937-019-0439-1
+Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). <https://doi.org/10.1186/s12937-019-0439-1>
 
-Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). https://doi.org/10.1186/s12877-023-03882-6
+Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). <https://doi.org/10.1186/s12877-023-03882-6>
 
-Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). https://doi.org/10.1186/1710-1492-10-S2-A6
+Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). <https://doi.org/10.1186/1710-1492-10-S2-A6>
 
-Charvet, A., Brogan Hartlieb, K., Yeh, Y. et al. A comparison of snack serving sizes to USDA guidelines in healthy weight and overweight minority preschool children enrolled in Head Start. BMC Obes 3, 36 (2016). https://doi.org/10.1186/s40608-016-0116-2
+Charvet, A., Brogan Hartlieb, K., Yeh, Y. et al. A comparison of snack serving sizes to USDA guidelines in healthy weight and overweight minority preschool children enrolled in Head Start. BMC Obes 3, 36 (2016). <https://doi.org/10.1186/s40608-016-0116-2>
 
-Chebil, S., Rjiba-Bahri, W., Oueslati, S. et al. Ochratoxigenic fungi and Ochratoxin A determination in dried grapes marketed in Tunisia. Ann Microbiol 70, 38 (2020). https://doi.org/10.1186/s13213-020-01584-7
+Chebil, S., Rjiba-Bahri, W., Oueslati, S. et al. Ochratoxigenic fungi and Ochratoxin A determination in dried grapes marketed in Tunisia. Ann Microbiol 70, 38 (2020). <https://doi.org/10.1186/s13213-020-01584-7>
