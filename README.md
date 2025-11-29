@@ -40,7 +40,7 @@ Commit the updated `conda-lock.yml`.
 To build the container locally, run:
 
 ```bash
-docker build -t <dockerhub_username>/<image_name>:latest .
+docker build -t <dockerhub_username>/<image_name> .
 ```
 
 This reads from `conda-lock.yml` to create a fully pinned computational environment.
@@ -77,8 +77,8 @@ This repository includes a workflow that automatically:
 
 To enable this, the following GitHub Secrets must be configured:
 
-- DOCKER_USERNAME
-- DOCKER_PASSWORD
+- `DOCKER_USERNAME`
+- `DOCKER_PASSWORD`
 
 Once configured, images are automatically published whenever changes are pushed to main.
 
