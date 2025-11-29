@@ -18,7 +18,7 @@ Follow the steps below to build, run, and update the project environment.
 
 ### 1. Prerequisites
 
-   Before running the analysis, install:
+Before running the analysis, install:
 
 - Docker Desktop: <https://www.docker.com/products/docker-desktop>
 - (Optional) conda-lock if you plan to update the environment locally.
@@ -56,7 +56,7 @@ docker run -it --rm \
 
 Then open Jupyter in your browser:
 
-``` text
+```text
 http://localhost:8888
 ```
 
@@ -140,14 +140,14 @@ MIT license. See [the license file](LICENSE.md) for more information.
 
 ## References
 
-Olmo-Cunillera, Alexandra et al. “Is Eating Raisins Healthy?.” Nutrients vol. 12,1 54. 24 Dec. 2019, doi:10.3390/nu12010054
-
-Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). <https://doi.org/10.1186/s12937-019-0439-1>
-
-Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). <https://doi.org/10.1186/s12877-023-03882-6>
-
-Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). <https://doi.org/10.1186/1710-1492-10-S2-A6>
-
 Charvet, A., Brogan Hartlieb, K., Yeh, Y. et al. A comparison of snack serving sizes to USDA guidelines in healthy weight and overweight minority preschool children enrolled in Head Start. BMC Obes 3, 36 (2016). <https://doi.org/10.1186/s40608-016-0116-2>
 
 Chebil, S., Rjiba-Bahri, W., Oueslati, S. et al. Ochratoxigenic fungi and Ochratoxin A determination in dried grapes marketed in Tunisia. Ann Microbiol 70, 38 (2020). <https://doi.org/10.1186/s13213-020-01584-7>
+
+Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). <https://doi.org/10.1186/1710-1492-10-S2-A6>
+
+Olmo-Cunillera, Alexandra et al. “Is Eating Raisins Healthy?.” Nutrients vol. 12,1 54. 24 Dec. 2019, doi:10.3390/nu12010054
+
+Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). <https://doi.org/10.1186/s12877-023-03882-6>
+
+Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). <https://doi.org/10.1186/s12937-019-0439-1>
