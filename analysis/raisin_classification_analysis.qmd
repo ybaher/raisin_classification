@@ -1,0 +1,322 @@
+---
+title: 'Crazy Raisins: A Raisin Classification Adventure'
+jupyter: python3
+---
+
+
+
+Authors: Yasaman Baher, Shreya Kakachery, Eric Wong 
+
+## Summary:
+Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of $0.876$ and an `F1` score of $0.875$, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
+The performance of our model was aligned with what our team expected. With the high accuracy and F1 score, we can assume that features such as `Area`, `Perimeter`, `MajorAxisLength` are meaningful and make an impact when distinguishing between the raisins. Our confusion matrix, however, showed that some classes were misclassified, leading to overlapping in physical characteristics. This makes sense as it would be harder for the model to classify raisins that are visually similar to one another. <br>
+With our model, quality control in agriculture and food processing could benefit tremendously as it would allow them to classify and differentiate between raisins that are in good shape, and edible and those that are not. With a high overall accuracy, we can assume that our model would help these industries could save labor, and have the classifier reliably distinguish between raisin types, reducing human error. At the same time, the misclassifications show areas where errors could happen, which could impact labeling, packaging, or pricing decisions if not addressed. <br>
+The results of our analysis could lead to several future directions that could be addressed. An important question is which features contribute the most to the classification decisions, and whether other measurements, such as color, texture, or weight, could improve performance. Looking at other classification models could help us create a more reliable model, helping us yield higher accuracy or better class-specific performance. Furthermore, we have to be mindful of how well the classifier generalizes to new batches of raisins, as this could reveal potential overfitting and indicate whether the model performs reliably on unseen data.
+
+## Introduction
+Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
+
+```{python}
+#| scrolled: true
+from ucimlrepo import fetch_ucirepo
+import altair as alt
+import pandas as pd
+from hashlib import sha1
+import numpy as np
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import pandera.pandas as pa
+from pandera import Column, Check, DataFrameSchema
+
+
+
+raisin = fetch_ucirepo(id=850)
+```
+
+```{python}
+df = pd.concat([raisin.data.features, raisin.data.targets], axis=1)
+df["Area"] = df["Area"].astype(float)
+df["ConvexArea"] = df["ConvexArea"].astype(float)
+df
+```
+
+*Fig. 1 Raw dataframe*
+
+```{python}
+X = raisin.data.features     # the features (7 morphological measurements)  
+y = raisin.data.targets      # the class labels (Kecimen vs Besni) 
+```
+
+```{python}
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 123)
+```
+
+```{python}
+X.info()
+```
+
+*Fig. 2 High-level information about the features where all are numerical and have no NULL values*
+
+```{python}
+X.describe()
+```
+
+*Fig. 3 Statistical overview of the numerical features to determine if any preprocessing is required. Initial thoughts are to use StandardScaler()*
+
+```{python}
+# validating correct file format (CSV)
+
+file_path = "data/raisin.csv"
+
+if file_path.lower().endswith(".csv"):
+    print("Correct file format")
+else:
+    print("Incorrect file format")
+```
+
+```{python}
+# validating column names
+
+expected_cols = [
+    "Area", "MajorAxisLength", "MinorAxisLength", 
+    "Eccentricity", "ConvexArea", "Extent", "Perimeter", "Class"
+]
+
+if set(df.columns) == set(expected_cols):
+    print("Column names are correct")
+else:
+    print("Column names incorrect")
+    print("Expected:", expected_cols)
+    print("Found:", list(df.columns))
+```
+
+```{python}
+# validating correct data types
+
+schema = pa.DataFrameSchema({
+        "Area": pa.Column(float),
+        "MajorAxisLength": pa.Column(float),
+        "MinorAxisLength": pa.Column(float),
+        "Eccentricity": pa.Column(float),
+        "ConvexArea": pa.Column(float),
+        "Extent": pa.Column(float), 
+        "Perimeter": pa.Column(float),
+        "Class": pa.Column(str)})
+```
+
+```{python}
+# validating missingness/null values of each column, making sure its below 5%
+
+raisin_schema = pa.DataFrameSchema(
+    {
+        "Area": pa.Column(
+            float,
+            pa.Check(
+                lambda s: s.isna().mean() <= 0.05,
+                element_wise=False,
+                error="Too many null values in 'Area' column."),
+            nullable=True),
+        "MajorAxisLength": pa.Column(
+            float,
+            pa.Check(
+                lambda s: s.isna().mean() <= 0.05,
+                element_wise=False,
+                error="Too many null values in 'MajorAxisLength' column."),
+            nullable=True),
+        "MinorAxisLength": pa.Column(
+            float,
+            pa.Check(
+                lambda s: s.isna().mean() <= 0.05,
+                element_wise=False,
+                error="Too many null values in 'MinorAxisLength' column."),
+            nullable=True),
+        "Eccentricity": pa.Column(float, nullable=True),
+        "ConvexArea": pa.Column(
+            float,
+            pa.Check(
+                lambda s: s.isna().mean() <= 0.05,
+                element_wise=False,
+                error="Too many null values in 'ConvexArea' column."),
+            nullable=True),
+        "Extent": pa.Column(float, nullable=True),
+        "Perimeter": pa.Column(
+            float,
+            pa.Check(
+                lambda s: s.isna().mean() <= 0.05,
+                element_wise=False,
+                error="Too many null values in 'Perimeter' column."),
+            nullable=True),
+        "Class": pa.Column(
+            str,
+            pa.Check.isin(["Kecimen", "Besni"]))
+    }
+)
+raisin_schema.validate(df)
+```
+
+```{python}
+# Check for duplicate observations in the dataset
+schema = pa.DataFrameSchema(
+    columns={
+        "Area": pa.Column(pa.Int, nullable=False),
+        "Perimeter": pa.Column(pa.Float, nullable=False),
+        "MajorAxisLength": pa.Column(pa.Float, nullable=False),
+        "MinorAxisLength": pa.Column(pa.Float, nullable=False),
+        "Eccentricity": pa.Column(pa.Float, nullable=False),
+        "ConvexArea": pa.Column(pa.Int, nullable=False),
+    }, checks=[
+        pa.Check(lambda df: not df.duplicated().any(), error="Duplicate rows found in the dataset.")
+    ]
+)
+schema.validate(X)
+```
+
+```{python}
+# Check if data is within reasonable ranges using pandera
+range_schema = pa.DataFrameSchema(
+    columns={
+        'Area': pa.Column(pa.Int, pa.Check.in_range(25380, 235050), nullable=False),
+        'Eccentricity': pa.Column(pa.Float, pa.Check.in_range(0.348, 0.9622), nullable=False),
+        'Extent': pa.Column(pa.Float, pa.Check.in_range(0.379, 0.836), nullable=False),
+        'MajorAxisLength': pa.Column(pa.Float, pa.Check.in_range(223.0, 1000), nullable=False),
+        'MinorAxisLength': pa.Column(pa.Float, pa.Check.in_range(140, 495), nullable=False),
+        'Perimeter': pa.Column(pa.Float, pa.Check.in_range(619, 2698), nullable=False),
+        'ConvexArea': pa.Column(pa.Int, pa.Check.in_range(26138, 278218), nullable=False)
+    }
+)
+range_schema.validate(X)
+```
+
+```{python}
+df = pd.concat([X, y], axis=1)
+df["Class"] = df["Class"].astype(str)
+
+axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
+    x='MajorAxisLength:Q',
+    y='MinorAxisLength:Q',
+    color='Class:N',
+    tooltip=['Class', 'Area', 'Perimeter']
+).properties(title = 'Minor Axis vs. Major Axis Length')
+
+axis_length_scatterplot
+```
+
+*Fig. 4 Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins*
+
+```{python}
+correlation_matrix = X.corr().stack().reset_index()
+correlation_matrix.columns = ['Feature1', 'Feature2', 'Correlation']
+correlation_heatmap = alt.Chart(correlation_matrix).mark_rect().encode(
+    x='Feature1:N',
+    y='Feature2:N',
+    color=alt.Color('Correlation:Q', scale=alt.Scale(range='diverging'), title='Correlation')
+).properties(
+    width=400,
+    height=400
+)
+annotations = alt.Chart(correlation_matrix).mark_text(baseline='middle').encode(
+    x='Feature1:N',
+    y='Feature2:N',
+    text=alt.Text('Correlation:Q', format='.2f'),
+    color=alt.condition(
+        alt.datum.Correlation > 0.5,
+        alt.value('white'),
+        alt.value('black')
+    )
+)
+correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pearson Correlation Matrix')
+correlation_heatmap
+```
+
+*Fig. 5 Pearson correlation matrix of each numerical feature*
+
+```{python}
+# Validate and drop features with high correlation
+corr_matrix = X.corr().abs()
+upper_tri = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+to_drop = [column for column in upper_tri.columns if any(upper_tri[column] > 0.9)]
+if to_drop:
+    print(f"Recommend dropping highly correlated features: {to_drop}")
+```
+
+```{python}
+# Validate high target feature correlation
+# Convert target variable to numeric for correlation calculation and validate that there are not features which have high correlation with the target variable
+y_numeric = pd.DataFrame()
+y_numeric['Class_num'] = y['Class'].map({'Kecimen': 0, 'Besni': 1})
+target_corr = pd.concat([X, y_numeric], axis=1).corr().abs()
+target_corr_with_y = target_corr['Class_num'].drop('Class_num')
+high_target_corr = target_corr_with_y[target_corr_with_y > 0.9]
+if not high_target_corr.empty:
+    print("Features with high correlation to target variable:")
+    print(high_target_corr)
+else:
+    print("No features with high correlation to target variable found.")
+```
+
+# Methods
+## Data
+The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
+
+## Analysis
+The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% and 25% to the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
+
+```{python}
+# Added conversion of y to numpy array to avoid warning when fitting model
+y = np.array(y['Class'])
+```
+
+```{python}
+clf = LogisticRegression(max_iter=2000)
+clf.fit(X_train, y_train)
+```
+
+```{python}
+y_pred = clf.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+accuracy
+```
+
+# Results and Discussion
+We can see that the dataset is quite balanced and our confusion matrix shows that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
+
+```{python}
+from sklearn.metrics import ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+
+cm_display = ConfusionMatrixDisplay.from_estimator(clf, X_test, y_test)
+plt.title("Confusion Matrix of the Logistic Regression Model")
+plt.show()
+```
+
+*Fig. 6 Confusion matrix of the LogisticRegression model*
+
+```{python}
+from sklearn.metrics import f1_score
+
+f1 = f1_score(y_test, y_pred, average='weighted')
+f1
+```
+
+```{python}
+# df.to_csv('data/raisin.csv')
+```
+
+# Citations
+Charvet, A., Brogan Hartlieb, K., Yeh, Y. et al. A comparison of snack serving sizes to USDA guidelines in healthy weight and overweight minority preschool children enrolled in Head Start. BMC Obes 3, 36 (2016). https://doi.org/10.1186/s40608-016-0116-2
+
+Chebil, S., Rjiba-Bahri, W., Oueslati, S. et al. Ochratoxigenic fungi and Ochratoxin A determination in dried grapes marketed in Tunisia. Ann Microbiol 70, 38 (2020). https://doi.org/10.1186/s13213-020-01584-7
+
+Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). https://doi.org/10.1186/1710-1492-10-S2-A6
+
+Olmo-Cunillera, Alexandra et al. “Is Eating Raisins Healthy?.” Nutrients vol. 12,1 54. 24 Dec. 2019, doi:10.3390/nu12010054
+
+Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). https://doi.org/10.1186/s12877-023-03882-6
+
+Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). https://doi.org/10.1186/s12937-019-0439-1
+
+
