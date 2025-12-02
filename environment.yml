@@ -13,7 +13,7 @@ dependencies:
   - mamba
   - conda
   - pandera
-  - click=8.1.7
-  - quarto=1.4.503
+  - click
+  - quarto
   - pip:
       - ucimlrepo==0.0.7
