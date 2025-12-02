@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 @click.argument("output_path", type=click.Path())
 def main(input_path, output_path):
     """
-    Reads raw data, cleans it, transforms it, splits it, 
+    Reads raw data, cleans it, transforms it, splits it,
     and writes processed train/test sets.
     """
 
@@ -19,7 +19,7 @@ def main(input_path, output_path):
     df = pd.read_csv(input_path)
 
     # -----------------------------
-    # 2. CLEAN DATA 
+    # 2. CLEAN DATA
     # -----------------------------
     df = df.drop_duplicates()
     df = df.dropna()
@@ -34,7 +34,7 @@ def main(input_path, output_path):
     train, test = train_test_split(df, test_size=0.2, random_state=123)
 
     # -----------------------------
-    # 4. SCALE FEATURES 
+    # 4. SCALE FEATURES
     # -----------------------------
     scaler = StandardScaler()
     features = df.columns.drop("Class")
