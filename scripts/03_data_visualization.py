@@ -13,8 +13,8 @@ import altair as alt
 
 def main(processed_training_data, plot_to):
     """
-    Reads raw data, cleans it, transforms it, splits it,
-    and writes processed train/test sets.
+    Reads processed training data, creates visualizations (scatter plot, 
+    correlation heatmap, confusion matrix), and saves them as PNG files.
     """
 
     # -----------------------------
