@@ -23,7 +23,7 @@ def main(input_path, output_path):
     # -----------------------------
     df = df.drop_duplicates()
     df = df.dropna()
-
+    df = df.drop(columns=["Unnamed: 0"])
     df["Area"] = df["Area"].astype(float)
     df["ConvexArea"] = df["ConvexArea"].astype(float)
     df["Class"] = df["Class"].astype(str)

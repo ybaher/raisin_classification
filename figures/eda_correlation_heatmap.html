@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "rect"}, "encoding": {"color": {"field": "Correlation", "scale": {"domain": [-1, 1], "scheme": "redblue"}, "title": "Correlation", "type": "quantitative"}, "x": {"field": "Feature1", "title": "", "type": "nominal"}, "y": {"field": "Feature2", "title": "", "type": "nominal"}}}, {"mark": {"type": "text", "baseline": "middle"}, "encoding": {"color": {"condition": {"test": "(abs(datum.Correlation) > 0.5)", "value": "white"}, "value": "black"}, "text": {"field": "Correlation", "format": ".2f", "type": "quantitative"}, "x": {"field": "Feature1", "type": "nominal"}, "y": {"field": "Feature2", "type": "nominal"}}}], "data": {"name": "data-18998136f85bc829fd17123f30b64ab5"}, "height": 400, "title": "Feature Correlation Matrix", "width": 400, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-18998136f85bc829fd17123f30b64ab5": [{"Feature1": "Area", "Feature2": "Area", "Correlation": 1.0}, {"Feature1": "Area", "Feature2": "MajorAxisLength", "Correlation": 0.9271057242764345}, {"Feature1": "Area", "Feature2": "MinorAxisLength", "Correlation": 0.9042076087976632}, {"Feature1": "Area", "Feature2": "Eccentricity", "Correlation": 0.3184207314331406}, {"Feature1": "Area", "Feature2": "ConvexArea", "Correlation": 0.995509117560975}, {"Feature1": "Area", "Feature2": "Extent", "Correlation": -0.009307092721347544}, {"Feature1": "Area", "Feature2": "Perimeter", "Correlation": 0.9587495517568542}, {"Feature1": "MajorAxisLength", "Feature2": "Area", "Correlation": 0.9271057242764345}, {"Feature1": "MajorAxisLength", "Feature2": "MajorAxisLength", "Correlation": 1.0}, {"Feature1": "MajorAxisLength", "Feature2": "MinorAxisLength", "Correlation": 0.7118493692704635}, {"Feature1": "MajorAxisLength", "Feature2": "Eccentricity", "Correlation": 0.5773249298685021}, {"Feature1": "MajorAxisLength", "Feature2": "ConvexArea", "Correlation": 0.9405509929928555}, {"Feature1": "MajorAxisLength", "Feature2": "Extent", "Correlation": -0.20821735308189196}, {"Feature1": "MajorAxisLength", "Feature2": "Perimeter", "Correlation": 0.9765779148153371}, {"Feature1": "MinorAxisLength", "Feature2": "Area", "Correlation": 0.9042076087976632}, {"Feature1": "MinorAxisLength", "Feature2": "MajorAxisLength", "Correlation": 0.7118493692704635}, {"Feature1": "MinorAxisLength", "Feature2": "MinorAxisLength", "Correlation": 1.0}, {"Feature1": "MinorAxisLength", "Feature2": "Eccentricity", "Correlation": -0.054123529110081364}, {"Feature1": "MinorAxisLength", "Feature2": "ConvexArea", "Correlation": 0.8923799007067429}, {"Feature1": "MinorAxisLength", "Feature2": "Extent", "Correlation": 0.1565579467276945}, {"Feature1": "MinorAxisLength", "Feature2": "Perimeter", "Correlation": 0.8179414461709413}, {"Feature1": "Eccentricity", "Feature2": "Area", "Correlation": 0.3184207314331406}, {"Feature1": "Eccentricity", "Feature2": "MajorAxisLength", "Correlation": 0.5773249298685021}, {"Feature1": "Eccentricity", "Feature2": "MinorAxisLength", "Correlation": -0.054123529110081364}, {"Feature1": "Eccentricity", "Feature2": "Eccentricity", "Correlation": 1.0}, {"Feature1": "Eccentricity", "Feature2": "ConvexArea", "Correlation": 0.33093477553864487}, {"Feature1": "Eccentricity", "Feature2": "Extent", "Correlation": -0.36213633011099394}, {"Feature1": "Eccentricity", "Feature2": "Perimeter", "Correlation": 0.4353175993599383}, {"Feature1": "ConvexArea", "Feature2": "Area", "Correlation": 0.995509117560975}, {"Feature1": "ConvexArea", "Feature2": "MajorAxisLength", "Correlation": 0.9405509929928555}, {"Feature1": "ConvexArea", "Feature2": "MinorAxisLength", "Correlation": 0.8923799007067429}, {"Feature1": "ConvexArea", "Feature2": "Eccentricity", "Correlation": 0.33093477553864487}, {"Feature1": "ConvexArea", "Feature2": "ConvexArea", "Correlation": 1.0}, {"Feature1": "ConvexArea", "Feature2": "Extent", "Correlation": -0.05201609174657544}, {"Feature1": "ConvexArea", "Feature2": "Perimeter", "Correlation": 0.975309787810084}, {"Feature1": "Extent", "Feature2": "Area", "Correlation": -0.009307092721347544}, {"Feature1": "Extent", "Feature2": "MajorAxisLength", "Correlation": -0.20821735308189196}, {"Feature1": "Extent", "Feature2": "MinorAxisLength", "Correlation": 0.1565579467276945}, {"Feature1": "Extent", "Feature2": "Eccentricity", "Correlation": -0.36213633011099394}, {"Feature1": "Extent", "Feature2": "ConvexArea", "Correlation": -0.05201609174657544}, {"Feature1": "Extent", "Feature2": "Extent", "Correlation": 1.0}, {"Feature1": "Extent", "Feature2": "Perimeter", "Correlation": -0.1749293661246928}, {"Feature1": "Perimeter", "Feature2": "Area", "Correlation": 0.9587495517568542}, {"Feature1": "Perimeter", "Feature2": "MajorAxisLength", "Correlation": 0.9765779148153371}, {"Feature1": "Perimeter", "Feature2": "MinorAxisLength", "Correlation": 0.8179414461709413}, {"Feature1": "Perimeter", "Feature2": "Eccentricity", "Correlation": 0.4353175993599383}, {"Feature1": "Perimeter", "Feature2": "ConvexArea", "Correlation": 0.975309787810084}, {"Feature1": "Perimeter", "Feature2": "Extent", "Correlation": -0.1749293661246928}, {"Feature1": "Perimeter", "Feature2": "Perimeter", "Correlation": 1.0}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
