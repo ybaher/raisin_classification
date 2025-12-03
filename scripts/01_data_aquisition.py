@@ -1,4 +1,10 @@
 def main():
+    """
+    Defines functions for reading and saving CSV data files.
+    
+    Contains get_data() to read CSV files into DataFrames and 
+    save_data() to write DataFrames to CSV files.
+    """
     import pandas as pd
     def get_data(path):
         df = pd.read_csv(path)
