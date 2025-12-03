@@ -13,15 +13,8 @@ from pathlib import Path
 @click.argument("input_path", type=str)
 @click.argument("output_path", type=click.Path())
 def main(input_path, output_path):
-    """
-    Download or read data and save it locally. 
-    
-    INPUT_PATH: URL or local path to the raw data file
-    OUTPUT_PATH: Path where to save the downloaded data (e.g., data/raw_data.csv)
-    """
-    
     # Check if input is a URL
-    if input_path. startswith('http://') or input_path. startswith('https://'):
+    if input_path.startswith('http://') or input_path.startswith('https://'):
         click.echo(f"Downloading data from {input_path}...")
         response = requests.get(input_path)
         response.raise_for_status()

@@ -111,12 +111,12 @@ def main(input_path, output_dir):
     distribution_path = os.path.join(output_dir, "eda_class_distribution.html")
     
     axis_length_scatterplot.save(scatter_path)
-    correlation_heatmap. save(heatmap_path)
+    correlation_heatmap.save(heatmap_path)
     class_distribution.save(distribution_path)
     
-    click.echo(f"✓ Scatter plot saved to {scatter_path}")
-    click.echo(f"✓ Correlation heatmap saved to {heatmap_path}")
-    click. echo(f"✓ Class distribution saved to {distribution_path}")
+    click.echo(f"Scatter plot saved to {scatter_path}")
+    click.echo(f"Correlation heatmap saved to {heatmap_path}")
+    click. echo(f"Class distribution saved to {distribution_path}")
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ import pickle
 def fit_model(X_train, y_train):
     """Fit a logistic regression model."""
     y_train = np.array(y_train)
-    clf = LogisticRegression(max_iter=2000, random_state=42)
+    clf = LogisticRegression(max_iter=2000, random_state=123)
     clf. fit(X_train, y_train)
     return clf
 
@@ -37,7 +37,7 @@ def save_confusion_matrix(clf, X_test, y_test, output_prefix):
     plt.savefig(f"{output_prefix}_confusion_matrix.png", dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"✓ Confusion matrix saved to {output_prefix}_confusion_matrix. png")
+    print(f"Confusion matrix saved to {output_prefix}_confusion_matrix.png")
 
 
 def save_classification_report(clf, X_test, y_test, output_prefix):
@@ -61,8 +61,8 @@ def save_classification_report(clf, X_test, y_test, output_prefix):
         f.write("Classification Report:\n")
         f.write(classification_report(y_test, y_pred))
     
-    print(f"✓ Classification report saved to {output_prefix}_classification_report.csv")
-    print(f"✓ Model summary saved to {output_prefix}_model_summary.txt")
+    print(f"Classification report saved to {output_prefix}_classification_report.csv")
+    print(f"Model summary saved to {output_prefix}_model_summary.txt")
     print(f"  Accuracy: {accuracy:.4f}")
 
 
@@ -95,7 +95,7 @@ def save_feature_importance(clf, feature_names, output_prefix):
     plt.savefig(f"{output_prefix}_feature_importance.png", dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"✓ Feature importance saved to {output_prefix}_feature_importance.[csv|png]")
+    print(f"Feature importance saved to {output_prefix}_feature_importance.[csv|png]")
 
 
 @click.command()
@@ -141,22 +141,22 @@ def main(train_data_path, test_data_path, output_prefix):
     click.echo(f"\n2. Scaling features...")
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler. transform(X_test)
+    X_test_scaled = scaler.transform(X_test)
     
     # -----------------------------
     # 3. TRAIN MODEL
     # -----------------------------
     click.echo(f"\n3. Training logistic regression model...")
     clf = fit_model(X_train_scaled, y_train)
-    click.echo(f"   Model training complete")
+    click.echo(f"Model training complete")
     
     # -----------------------------
     # 4. SAVE MODEL
     # -----------------------------
     model_path = f"{output_prefix}_model.pkl"
     with open(model_path, 'wb') as f:
-        pickle. dump({'model': clf, 'scaler': scaler}, f)
-    click.echo(f"   Model saved to {model_path}")
+        pickle.dump({'model': clf, 'scaler': scaler}, f)
+    click.echo(f"Model saved to {model_path}")
     
     # -----------------------------
     # 5. GENERATE EVALUATION ARTIFACTS
