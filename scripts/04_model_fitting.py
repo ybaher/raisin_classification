@@ -20,7 +20,7 @@ def fit_model(X_train, y_train):
     """Fit a logistic regression model."""
     y_train = np.array(y_train)
     clf = LogisticRegression(max_iter=2000, random_state=123)
-    clf. fit(X_train, y_train)
+    clf.fit(X_train, y_train)
     return clf
 
 
@@ -28,7 +28,7 @@ def save_confusion_matrix(clf, X_test, y_test, output_prefix):
     """Generate and save confusion matrix visualization."""
     y_test = np.array(y_test)
     
-    cm_display = ConfusionMatrixDisplay. from_estimator(
+    cm_display = ConfusionMatrixDisplay.from_estimator(
         clf, X_test, y_test, cmap='Blues'
     )
     
