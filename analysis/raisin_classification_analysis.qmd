@@ -1,11 +1,17 @@
 ---
 title: 'Crazy Raisins: A Raisin Classification Adventure'
 jupyter: python3
+Authors: Yasaman Baher, Shreya Kakachery, Eric Wong
+output: PDF
+toc: true
+toc-title: "Table of Content"
+toc-depth: 3 
+number-sections: true
 ---
 
 
 
-Authors: Yasaman Baher, Shreya Kakachery, Eric Wong 
+
 
 ## Summary:
 Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of $0.876$ and an `F1` score of $0.875$, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>

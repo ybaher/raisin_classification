@@ -1,96 +1,122 @@
+"""
+Creates exploratory data visualizations from processed training data.  
+
+Usage:
+    python 03_data_visualization.py <input_path> <output_dir>
+"""
 import click
 import os
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
+from pathlib import Path
 import altair as alt
 
 @click.command()
-@click.option('--processed-training-data', type=str, help="Path to processed training data")
-@click.option('--plot-to', type=str, help="Path to directory where the plot will be written to")
-
-def main(processed_training_data, plot_to):
+@click.argument('input_path', type=click. Path(exists=True))
+@click.argument('output_dir', type=click.Path())
+def main(input_path, output_dir):
     """
-    Reads processed training data, creates visualizations (scatter plot, 
-    correlation heatmap, confusion matrix), and saves them as PNG files.
+    Reads processed training data and creates EDA visualizations.
+    
+    INPUT_PATH: Path to processed training data
+    OUTPUT_DIR: Directory where plots will be saved
     """
 
     # -----------------------------
     # 1. READ CLEAN DATA
     # -----------------------------
-    df = pd.read_csv(processed_training_data)
+    click.echo(f"Reading processed data from {input_path}...")
+    df = pd.read_csv(input_path)
+    click.echo(f"Loaded {len(df)} rows with {len(df.columns)} columns")
 
     # -----------------------------
-    # 2. SPLIT DATA
+    # 2.  SCATTER PLOT
     # -----------------------------
-    X = df.drop(columns=['Class'])
-    y = df['Class']
-    
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=123
-    )
-    
-    # Train model for confusion matrix
-    clf = LogisticRegression(max_iter=2000)
-    clf.fit(X_train, y_train) 
-
-    # -----------------------------
-    # 3. SCATTER PLOT
-    # -----------------------------
-    df = pd.concat([X, y], axis=1)
+    click.echo("Creating scatter plot...")
     df["Class"] = df["Class"].astype(str)
 
     axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
-        x='MajorAxisLength:Q',
-        y='MinorAxisLength:Q',
-        color='Class:N',
+        x=alt.X('MajorAxisLength:Q', title='Major Axis Length'),
+        y=alt.Y('MinorAxisLength:Q', title='Minor Axis Length'),
+        color=alt. Color('Class:N', title='Class'),
         tooltip=['Class', 'Area', 'Perimeter']
-    ).properties(title = 'Minor Axis vs. Major Axis Length')
+    ).properties(
+        title='Minor Axis vs.  Major Axis Length by Class',
+        width=500,
+        height=400
+    )
 
     # -----------------------------
-    # 4. HEAT MAP
+    # 3.  CORRELATION HEAT MAP
     # -----------------------------
-    correlation_matrix = X.corr().stack().reset_index()
+    click.echo("Creating correlation heatmap...")
+    
+    # Separate features and target
+    X = df.drop(columns=['Class'])
+    
+    correlation_matrix = X.corr(). stack().reset_index()
     correlation_matrix.columns = ['Feature1', 'Feature2', 'Correlation']
-    correlation_heatmap = alt.Chart(correlation_matrix).mark_rect().encode(
-        x='Feature1:N',
-        y='Feature2:N',
-        color=alt.Color('Correlation:Q', scale=alt.Scale(range='diverging'), title='Correlation')
+    
+    correlation_heatmap = alt. Chart(correlation_matrix).mark_rect().encode(
+        x=alt.X('Feature1:N', title=''),
+        y=alt.Y('Feature2:N', title=''),
+        color=alt.Color('Correlation:Q', 
+                       scale=alt.Scale(scheme='redblue', domain=[-1, 1]), 
+                       title='Correlation')
     ).properties(
         width=400,
         height=400
     )
+    
     annotations = alt.Chart(correlation_matrix).mark_text(baseline='middle').encode(
         x='Feature1:N',
         y='Feature2:N',
         text=alt.Text('Correlation:Q', format='.2f'),
-        color=alt.condition(
-            alt.datum.Correlation > 0.5,
+        color=alt. condition(
+            abs(alt. datum.Correlation) > 0.5,
             alt.value('white'),
             alt.value('black')
         )
     )
-    correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pearson Correlation Matrix')
+    
+    correlation_heatmap = (correlation_heatmap + annotations). properties(
+        title='Feature Correlation Matrix'
+    )
 
     # -----------------------------
-    # 5. CONFUSION MATRIX
+    # 4. CLASS DISTRIBUTION
     # -----------------------------
-    cm_display = ConfusionMatrixDisplay.from_estimator(clf, X_test, y_test)
+    click.echo("Creating class distribution plot...")
+    
+    class_counts = df['Class']. value_counts().reset_index()
+    class_counts.columns = ['Class', 'Count']
+    
+    class_distribution = alt.Chart(class_counts).mark_bar().encode(
+        x=alt.X('Class:N', title='Class'),
+        y=alt.Y('Count:Q', title='Count'),
+        color=alt.Color('Class:N', legend=None)
+    ). properties(
+        title='Class Distribution',
+        width=400,
+        height=300
+    )
 
     # -----------------------------
-    # 6. SAVE OUTPUT FILES
+    # 5. SAVE OUTPUT FILES
     # -----------------------------
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
     
-    axis_length_scatterplot.save(os.path.join(plot_to, "scatter_plot.png"),
-              scale_factor=2.0)
-    correlation_heatmap.save(os.path.join(plot_to, "heat_map.png"),
-              scale_factor=2.0)
-    cm_display.save(os.path.join(plot_to, "confusion_matrix.png"),
-              scale_factor=2.0)
+    # Save as HTML files (no additional dependencies required)
+    scatter_path = os.path.join(output_dir, "eda_scatter_plot.html")
+    heatmap_path = os.path.join(output_dir, "eda_correlation_heatmap.html")
+    distribution_path = os.path.join(output_dir, "eda_class_distribution.html")
     
-    click.echo("Processed data visualization saved.")
+    axis_length_scatterplot.save(scatter_path)
+    correlation_heatmap. save(heatmap_path)
+    class_distribution.save(distribution_path)
+    
+    click.echo(f"✓ Scatter plot saved to {scatter_path}")
+    click.echo(f"✓ Correlation heatmap saved to {heatmap_path}")
+    click. echo(f"✓ Class distribution saved to {distribution_path}")
 
 
 if __name__ == "__main__":
