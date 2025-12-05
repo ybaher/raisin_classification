@@ -72,7 +72,7 @@ def main(input_path, output_dir):
         y='Feature2:N',
         text=alt.Text('Correlation:Q', format='.2f'),
         color=alt. condition(
-            abs(alt. datum.Correlation) > 0.5,
+            abs(alt.datum.Correlation) > 0.5,
             alt.value('white'),
             alt.value('black')
         )
