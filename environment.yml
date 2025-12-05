@@ -18,3 +18,4 @@ dependencies:
       - scikit-learn==1.6.1
       - matplotlib==3.9.1
       - click
+      - jupyterlab==4.5.0
