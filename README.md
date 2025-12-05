@@ -92,34 +92,45 @@ docker pull <dockerhub_username>/<image_name>:latest
 
 ### 7. Running the Full Analysis
 
-Run each command **in order**
-
 **Step 1: Navigate to the root of this project using the command line and enter the following command**
+
 ```
 docker compose up
 ```
 
-**Step 2: Look for a URL that starts with `http://127.0.0.1:8888/lab?token=`**
+**Step 2: Look for a URL that starts with `http://127.0.0.1:8888/lab?token=`** <br>
+Copy the full URL (including the token) and paste it into your browser to open Jupyter Lab.
 
-**Step 3: Run the following commands**
+<img src="figures/jupyter_path.png" width="500"/>
+
+**Step 3: Open the terminal inside Jupyter**
+
+<img src="figures/terminal.png" width="500"/>
+
+**Step 4: Run the following commands one at a time**
 ```
-python scripts/01_data_aquisition.py \
+python scripts/01_data_acquisition.py \
     data/raisin.csv \
     data/raw/raisin_data.csv
+```
 
-python scripts/02_data_cleaning. py \
+```
+python scripts/02_data_cleaning.py \
     data/raw/raisin_data.csv \
     data/processed/raisin_cleaned.csv
-
+```
+```
 python scripts/03_data_visualization.py \
-    data/processed/raisin_cleaned_train.csv \
+    data/processed/raisin_cleaned.csv \
     results/figures
-
+```
+```
 python scripts/04_model_fitting.py \
     data/processed/raisin_cleaned_train.csv \
     data/processed/raisin_cleaned_test.csv \
     results/models/raisin_model
-
+```
+```
 quarto render analysis/raisin_classification.qmd --to html
 quarto render analysis/raisin_classification.qmd --to pdf
 ```

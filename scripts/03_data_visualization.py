@@ -52,8 +52,8 @@ def main(input_path, output_dir):
     
     # Separate features and target
     X = df.drop(columns=['Class'])
-    
-    correlation_matrix = X.corr(). stack().reset_index()
+    X_numeric = X.select_dtypes(include=['number'])  # <-- only numeric columns
+    correlation_matrix = X_numeric.corr().stack().reset_index()
     correlation_matrix.columns = ['Feature1', 'Feature2', 'Correlation']
     
     correlation_heatmap = alt. Chart(correlation_matrix).mark_rect().encode(
