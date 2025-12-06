@@ -175,6 +175,12 @@ The confusion matrix of our model @fig-logreg-conf-matrix indicates that the mod
 
 Figure: Confusion matrix of the LogisticRegression model
 
+![Bar plot of Feature Coefficients.]("../results/models/raisin_model_feature importance.png"){#fig-coefs-barplot}
+
+Figure: Bar plot of Feature Coefficients
+
+
+
 ```{python}
 from sklearn.metrics import f1_score
 
@@ -182,9 +188,7 @@ f1 = f1_score(y_test, y_pred, average='weighted')
 f1
 ```
 
-```{python}
-# df.to_csv('data/raisin.csv')
-```
+
 
 # References
 
