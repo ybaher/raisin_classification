@@ -213,48 +213,13 @@ range_schema = pa.DataFrameSchema(
 range_schema.validate(X)
 ```
 
-```{python}
-df = pd.concat([X, y], axis=1)
-df["Class"] = df["Class"].astype(str)
 
-axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
-    x='MajorAxisLength:Q',
-    y='MinorAxisLength:Q',
-    color='Class:N',
-    tooltip=['Class', 'Area', 'Perimeter']
-).properties(title = 'Minor Axis vs. Major Axis Length')
-
-axis_length_scatterplot
-```
 
 ![Scatterplot of the two major measurements.]("../eda_scatter_plot.png"){#fig-measurement-scatterplot}
 
 Figure: Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins
 
-```{python}
-correlation_matrix = X.corr().stack().reset_index()
-correlation_matrix.columns = ['Feature1', 'Feature2', 'Correlation']
-correlation_heatmap = alt.Chart(correlation_matrix).mark_rect().encode(
-    x='Feature1:N',
-    y='Feature2:N',
-    color=alt.Color('Correlation:Q', scale=alt.Scale(range='diverging'), title='Correlation')
-).properties(
-    width=400,
-    height=400
-)
-annotations = alt.Chart(correlation_matrix).mark_text(baseline='middle').encode(
-    x='Feature1:N',
-    y='Feature2:N',
-    text=alt.Text('Correlation:Q', format='.2f'),
-    color=alt.condition(
-        alt.datum.Correlation > 0.5,
-        alt.value('white'),
-        alt.value('black')
-    )
-)
-correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pearson Correlation Matrix')
-correlation_heatmap
-```
+
 
 ![Pearson correlation matrix of each numerical feature.]("../figures/eda_correlation_heatmap.png"){#fig-pearson-corr-matrix}
 
