@@ -8,7 +8,8 @@ COPY conda-lock.yml conda-lock.yml
 RUN conda install -n base -c conda-forge conda-lock -y
 
 # install packages from lockfile into dockerlock environment
-RUN conda-lock install -n dockerlock conda-lock.yml
+# RUN conda-lock install -n dockerlock conda-lock.yml       
+RUN conda-lock install -n dockerlock conda-linux-64.lock  
 
 # make dockerlock the default environment
 RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate dockerlock" >> ~/.bashrc
