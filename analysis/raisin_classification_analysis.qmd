@@ -44,32 +44,26 @@ from pandera import Column, Check, DataFrameSchema
 
 ```{python}
 #| echo: false
+# Load the classification report CSV
+report = pd.read_csv("../results/models/raisin_model_classification_report.csv", index_col=0)
 
-summary_path = "../results/models/raisin_model_model_summary.txt"
+# Extract accuracy and f1
+accuracy = float(report.loc["accuracy", "precision"])
+weighted_f1 = float(report.loc["weighted avg", "f1-score"])
 
-with open(summary_path) as f:
-    lines = f.readlines()
-
-# Extract Accuracy
-for line in lines:
-    if line.startswith("Accuracy"):
-        accuracy = float(line.split()[1])
-        break
-
-# Extract weighted F1
-for i, line in enumerate(lines):
-    if "weighted avg" in line:
-        weighted_f1 = float(line.split()[3])
-        break
+accuracy = round(accuracy, 3)
+weighted_f1 = round(weighted_f1, 3)
 ```
 
 
 
 # Summary
 
+testing `{python} accuracy` 
+
 In this project, we built a classification model using logistic regression to predict raisin varieties—Besni and Kecimen—based on morphological measurements extracted from digitized raisin images. Several of the size-related features, such as `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea`, were found to be strongly correlated. This suggests redundancy among these predictors, whereas features like `Eccentricity` and `Extent` provide more distinct shape information that may help refine classification.
 
-Our model achieved an accuracy of {accuracy:.3f} and a weighted F1 score of `{weighted_f1:.3f}`, indicating strong and balanced performance across both classes. The similarity of these two metrics suggests that the class distribution is not heavily skewed. However, the correlation heatmap shows that size-based measurements dominate the feature set, which could cause the model to over-rely on redundant information and increase the risk of overfitting.
+Our model achieved an accuracy of `{python} accuracy`  and a weighted F1 score of `{python} weighted_f1`, indicating strong and balanced performance across both classes. The similarity of these two metrics suggests that the class distribution is not heavily skewed. However, the correlation heatmap shows that size-based measurements dominate the feature set, which could cause the model to over-rely on redundant information and increase the risk of overfitting.
 
 The confusion matrix reveals that while the model performs well overall, some misclassifications occur where the two raisin types have overlapping visual characteristics. This is expected in real-world applications, where similar shape profiles can blur the distinction between varieties.
 
@@ -100,7 +94,6 @@ The dataset used in this project consists of digitized raisin images provided by
 
 ```{python}
 #| echo: false
-#| scrolled: true
 raisin = fetch_ucirepo(id=850)
 ```
 
@@ -156,10 +149,10 @@ Markdown(X.describe().to_markdown())
 
 
 ## Analysis
-The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of `{ADD ACCURACY HERE}` with our model, , indicating strong performance given the simplicity of the model.
+The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model.
 
 
-# Exploratory Data Analysis (EDA)
+# Exploratory Data Analysis
 
 We began our EDA by visualizing the two major axis measurements. The scatterplot in @fig-measurement-scatterplot shows visible separation between the two raisin varieties based on these measurements.
 
@@ -173,13 +166,13 @@ Next, the Pearson correlation matrix shown in @fig-pearson-corr-matrix reveals s
 ![Pearson correlation matrix of each numerical feature.](../figures/eda_correlation_heatmap.png){#fig-pearson-corr-matrix}
 
 
-# Results 
-
 The dataset contains a nearly even number of Besni and Kecimen raisins, as shown in @fig-class-distribution. This balance is beneficial for classification performance because it reduces the risk of a model over-emphasizing one class.
 
 
 ![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-class-distribution}
 
+
+# Results 
 
 The confusion matrix for the Logistic Regression classifier (@fig-logreg-conf-matrix) shows that the model performs strongly overall but exhibits slightly better performance for the Kecimen class. Misclassifications occur in both directions, suggesting that some raisins share similar morphological properties that make them difficult to distinguish.
 
@@ -192,6 +185,7 @@ The feature coefficient plot (@fig-coefs-barplot) highlights which variables con
 ![Bar plot of Feature Coefficients.](../results/models/raisin_model_feature_importance.png){#fig-coefs-barplot}
 
 
+The model had an accuracy of `{python} accuracy` and a weighted f1 score of `{python} ` .
 
 # Discussion
 
@@ -200,7 +194,7 @@ Overall, the Logistic Regression classifier was effective at distinguishing betw
 The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected, because if two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.
 
 
-Future improvements may involve: feature engineering to capture non-linear models, training other models such as Tandom FOrests and SVMs, and hyperparameter turning if it is relevant for the chosen model. 
+Future improvements may include feature engineering to capture non-linear models, training other models such as Tandom FOrests and SVMs, and hyperparameter turning if it is relevant for the chosen model. 
 
 These findings indicate that while the current model performs well for basic classification, there is strong potential for further improvement with more sophisticated modeling techniques and a richer feature set.
 
