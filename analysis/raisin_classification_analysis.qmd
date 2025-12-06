@@ -65,7 +65,7 @@ for i, line in enumerate(lines):
 
 
 
-# Summary:
+# Summary
 Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of `{accuracy:.3f}` and a weighted `F1` score of `{weighted_f1:.3f}`, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
 The performance of our model was aligned with what our team expected. With the high accuracy and F1 score, we can assume that features such as `Area`, `Perimeter`, `MajorAxisLength` are meaningful and make an impact when distinguishing between the raisins. Our confusion matrix, however, showed that some classes were misclassified, leading to overlapping in physical characteristics. This makes sense as it would be harder for the model to classify raisins that are visually similar to one another. <br>
 With our model, quality control in agriculture and food processing could benefit tremendously as it would allow them to classify and differentiate between raisins that are in good shape, and edible and those that are not. With a high overall accuracy, we can assume that our model would help these industries could save labor, and have the classifier reliably distinguish between raisin types, reducing human error. At the same time, the misclassifications show areas where errors could happen, which could impact labeling, packaging, or pricing decisions if not addressed. <br>
@@ -126,16 +126,15 @@ Markdown(X.describe().to_markdown())
 
 
 
+There were two major axis of measurements and here is a scatterplot @fig-measurement-scatterplot.
 
-![Scatterplot of the two major measurements.]("../eda_scatter_plot.png"){#fig-measurement-scatterplot}
-
-Figure: Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins
-
+![Scatterplot of the two major measurements.](../figures/eda_scatter_plot.png){#fig-measurement-scatterplot}
 
 
-![Pearson correlation matrix of each numerical feature.]("../figures/eda_correlation_heatmap.png"){#fig-pearson-corr-matrix}
+Here is the correlation matrix of all the numerical features in the data @fig-pearson-corr-matrix.
 
-Figure: Pearson correlation matrix of each numerical feature
+![Pearson correlation matrix of each numerical feature.](../figures/eda_correlation_heatmap.png){#fig-pearson-corr-matrix}
+
 
 
 
@@ -153,19 +152,17 @@ The LogisticRegression algorithm was used to build the classification model to p
 # Results and Discussion
 We can see that the dataset is quite balanced, as shown in @fig-class-distribution. 
 
-![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-logreg-conf-matrix}
-
-Figure: Class Distribution of Raisin Variety
+![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-class-distribution}
 
 The confusion matrix of our model @fig-logreg-conf-matrix indicates that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
 
 ![Confusion matrix of the LogisticRegression model.](../results/models/raisin_model_confusion_matrix.png){#fig-logreg-conf-matrix}
 
-Figure: Confusion matrix of the LogisticRegression model
 
-![Bar plot of Feature Coefficients.]("../results/models/raisin_model_feature_importance.png"){#fig-coefs-barplot}
+Here is the bar plot of our features based on their importance (magnitude) @fig-coefs-barplot.
 
-Figure: Bar plot of Feature Coefficients
+![Bar plot of Feature Coefficients.](../results/models/raisin_model_feature_importance.png){#fig-coefs-barplot}
+
 
 
 
