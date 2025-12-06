@@ -66,29 +66,36 @@ for i, line in enumerate(lines):
 
 
 # Summary
-Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of `{accuracy:.3f}` and a weighted `F1` score of `{weighted_f1:.3f}`, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
-The performance of our model was aligned with what our team expected. With the high accuracy and F1 score, we can assume that features such as `Area`, `Perimeter`, `MajorAxisLength` are meaningful and make an impact when distinguishing between the raisins. Our confusion matrix, however, showed that some classes were misclassified, leading to overlapping in physical characteristics. This makes sense as it would be harder for the model to classify raisins that are visually similar to one another. <br>
-With our model, quality control in agriculture and food processing could benefit tremendously as it would allow them to classify and differentiate between raisins that are in good shape, and edible and those that are not. With a high overall accuracy, we can assume that our model would help these industries could save labor, and have the classifier reliably distinguish between raisin types, reducing human error. At the same time, the misclassifications show areas where errors could happen, which could impact labeling, packaging, or pricing decisions if not addressed. <br>
-The results of our analysis could lead to several future directions that could be addressed. An important question is which features contribute the most to the classification decisions, and whether other measurements, such as color, texture, or weight, could improve performance. Looking at other classification models could help us create a more reliable model, helping us yield higher accuracy or better class-specific performance. Furthermore, we have to be mindful of how well the classifier generalizes to new batches of raisins, as this could reveal potential overfitting and indicate whether the model performs reliably on unseen data.
+
+In this project, we built a classification model using logistic regression to predict raisin varieties—Besni and Kecimen—based on morphological measurements extracted from digitized raisin images. Several of the size-related features, such as `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea`, were found to be strongly correlated. This suggests redundancy among these predictors, whereas features like `Eccentricity` and `Extent` provide more distinct shape information that may help refine classification.
+
+Our model achieved an accuracy of {accuracy:.3f} and a weighted F1 score of `{weighted_f1:.3f}`, indicating strong and balanced performance across both classes. The similarity of these two metrics suggests that the class distribution is not heavily skewed. However, the correlation heatmap shows that size-based measurements dominate the feature set, which could cause the model to over-rely on redundant information and increase the risk of overfitting.
+
+The confusion matrix reveals that while the model performs well overall, some misclassifications occur where the two raisin types have overlapping visual characteristics. This is expected in real-world applications, where similar shape profiles can blur the distinction between varieties.
+
+This classifier has practical implications for quality control in agriculture and food processing, where automated classification could reduce labor costs, improve consistency, and minimize human error. At the same time, misclassifications highlight the need for caution in applications involving labeling or pricing decisions.
+
+Future work may include investigating which features contribute most to the model’s decisions, incorporating additional measurements such as color or texture, and experimenting with alternative machine learning algorithms. Evaluating the model’s generalizability on new raisin batches is also essential to ensure it performs reliably beyond this dataset.
+
 
 # Introduction
 
+Raisins are dried grapes, and like their fresh counterparts, different varieties vary in taste, texture, sweetness, and appearance. Beyond being a common snack, raisins are associated with various health benefits, such as increased raisin consumption has been linked to improved diet quality and reduced appetite [@olmo2019raisins]. Accurately identifying raisin varieties can be useful in food processing, quality control, and consumer preference studies.
 
-Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."[@olmo2019raisins] The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
-
+The dataset used in this project consists of morphological measurements extracted from images of 900 raisins belonging to the Besni and Kecimen varieties, obtained from the UCI Machine Learning Repository. Each sample includes seven numerical features describing the size and shape of a raisin.
 
 ## Background
+Morphological measurements, such as area, perimeter, and axis lengths, capture important geometric properties that may distinguish different raisin types. Because these biological shapes vary naturally, analyzing their quantitative characteristics can reveal patterns that are not easily detectable by simple visual inspection.
 
-## Motivation 
-
+## Motivation
+Our goal is to determine whether raisin variety can be accurately predicted using these measured properties. If successful, this type of model could support automated inspection systems in agriculture and food processing, reduce human error, and help standardize quality control. This analysis also helps us understand which features are most informative and whether logistic regression is an appropriate model for this classification task.
 
 
 # Methods
 
 ## Data
-The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
 
-
+The dataset used in this project consists of digitized raisin images provided by İ̇lkay Çınar, Murat Koklu, and Şakir Taşdemir from Selçuk University [@cinar2019raisin]. The dataset is available through the UCI Machine Learning Repository and was imported using the ucimlrepo Python library. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)]. Each observation corresponds to a single raisin and includes seven numerical features capturing its morphological properties. Every raisin belongs to one of two varieties: Besni or Kecimen.
 
 
 ```{python}
@@ -112,11 +119,15 @@ X = raisin.data.features     # the features (7 morphological measurements)
 y = raisin.data.targets      # the class labels (Kecimen vs Besni) 
 ```
 
+A standard 75%/25% train–test split was used to create separate datasets for model training and evaluation
+
 ```{python}
 #| echo: false
 test_size = 0.25
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = test_size, random_state = 123)
 ```
+
+@tbl-info provides a high-level summary of the dataset structure:
 
 ```{python}
 #| echo: false
@@ -133,6 +144,8 @@ Markdown(f"`\n{info_text}\n`")
 ```
 
 
+@tbl-describe provides the descriptive statistics for the numerical features:
+
 ```{python}
 #| echo: false
 #| label: tbl-describe
@@ -142,43 +155,54 @@ Markdown(X.describe().to_markdown())
 ```
 
 
-
-
 ## Analysis
-The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split `r int((1-test_size)*100)`% / `r int(test_size*100)`% into the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
-
+The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of `{ADD ACCURACY HERE}` with our model, , indicating strong performance given the simplicity of the model.
 
 
 # Exploratory Data Analysis (EDA)
 
-There were two major axis of measurements and here is a scatterplot @fig-measurement-scatterplot.
+We began our EDA by visualizing the two major axis measurements. The scatterplot in @fig-measurement-scatterplot shows visible separation between the two raisin varieties based on these measurements.
+
 
 ![Scatterplot of the two major measurements.](../figures/eda_scatter_plot.png){#fig-measurement-scatterplot}
 
 
-As shown in @fig-pearson-corr-matrix, size features are strongly correlated. 
+Next, the Pearson correlation matrix shown in @fig-pearson-corr-matrix reveals strong correlations among size-related features such as Area, Perimeter, and ConvexArea. These relationships suggest redundancy among size metrics and highlight the importance of including shape-based descriptors.
+
 
 ![Pearson correlation matrix of each numerical feature.](../figures/eda_correlation_heatmap.png){#fig-pearson-corr-matrix}
 
 
-
 # Results 
-We can see that the dataset is quite balanced, as shown in @fig-class-distribution. 
+
+The dataset contains a nearly even number of Besni and Kecimen raisins, as shown in @fig-class-distribution. This balance is beneficial for classification performance because it reduces the risk of a model over-emphasizing one class.
+
 
 ![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-class-distribution}
 
-The confusion matrix of our model @fig-logreg-conf-matrix indicates that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
+
+The confusion matrix for the Logistic Regression classifier (@fig-logreg-conf-matrix) shows that the model performs strongly overall but exhibits slightly better performance for the Kecimen class. Misclassifications occur in both directions, suggesting that some raisins share similar morphological properties that make them difficult to distinguish.
+
 
 ![Confusion matrix of the LogisticRegression model.](../results/models/raisin_model_confusion_matrix.png){#fig-logreg-conf-matrix}
 
 
-Here is the bar plot of our features based on their importance (magnitude) @fig-coefs-barplot.
+The feature coefficient plot (@fig-coefs-barplot) highlights which variables contribute most strongly to the model’s predictions. Since Logistic Regression coefficients reflect the importance of standardized features, the magnitude of each bar indicates how strongly that feature influences classification. Size-related features appear dominant, reinforcing earlier observations from the correlation matrix.
 
 ![Bar plot of Feature Coefficients.](../results/models/raisin_model_feature_importance.png){#fig-coefs-barplot}
 
 
 
 # Discussion
+
+Overall, the Logistic Regression classifier was effective at distinguishing between Besni and Kecimen raisins, achieving high accuracy and balanced performance across classes. The results support the idea that size-based features, such as Area, Perimeter, and ConvexArea, play a major role in classification. However, because these measurements are highly correlated, the model may rely too heavily on redundant information, which could limit generalizability.
+
+The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected, because if two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.
+
+
+Future improvements may involve: feature engineering to capture non-linear models, training other models such as Tandom FOrests and SVMs, and hyperparameter turning if it is relevant for the chosen model. 
+
+These findings indicate that while the current model performs well for basic classification, there is strong potential for further improvement with more sophisticated modeling techniques and a richer feature set.
 
 
 # References
