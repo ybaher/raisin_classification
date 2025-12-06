@@ -134,8 +134,14 @@ python scripts/05_model_fitting.py \
     results/models/raisin_model
 ```
 ```
-quarto render analysis/raisin_classification.qmd --to html
-quarto render analysis/raisin_classification.qmd --to pdf
+quarto render ./analysis/raisin_classification_analysis.qmd --to html
+quarto render ./analysis/raisin_classification_analysis.qmd --to pdf
+```
+
+Note: Windows/MacOS users may need to install TinyTex to successfully render PDF
+
+```
+quarto install tinytex
 ```
 
 ## Report
