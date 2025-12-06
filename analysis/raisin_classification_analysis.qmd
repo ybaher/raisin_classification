@@ -72,7 +72,24 @@ With our model, quality control in agriculture and food processing could benefit
 The results of our analysis could lead to several future directions that could be addressed. An important question is which features contribute the most to the classification decisions, and whether other measurements, such as color, texture, or weight, could improve performance. Looking at other classification models could help us create a more reliable model, helping us yield higher accuracy or better class-specific performance. Furthermore, we have to be mindful of how well the classifier generalizes to new batches of raisins, as this could reveal potential overfitting and indicate whether the model performs reliably on unseen data.
 
 # Introduction
-Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
+
+
+Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."[@olmo2019raisins] The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
+
+
+## Background
+
+## Motivation 
+
+
+
+# Methods
+
+## Data
+The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
+
+
+
 
 ```{python}
 #| echo: false
@@ -126,30 +143,26 @@ Markdown(X.describe().to_markdown())
 
 
 
-There were two major axis of measurements and here is a scatterplot @fig-measurement-scatterplot.
-
-![Scatterplot of the two major measurements.](../figures/eda_scatter_plot.png){#fig-measurement-scatterplot}
-
-
-Here is the correlation matrix of all the numerical features in the data @fig-pearson-corr-matrix.
-
-![Pearson correlation matrix of each numerical feature.](../figures/eda_correlation_heatmap.png){#fig-pearson-corr-matrix}
-
-
-
-
-# Methods
-## Data
-The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
 
 ## Analysis
 The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split `r int((1-test_size)*100)`% / `r int(test_size*100)`% into the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
 
 
 
+# Exploratory Data Analysis (EDA)
+
+There were two major axis of measurements and here is a scatterplot @fig-measurement-scatterplot.
+
+![Scatterplot of the two major measurements.](../figures/eda_scatter_plot.png){#fig-measurement-scatterplot}
 
 
-# Results and Discussion
+As shown in @fig-pearson-corr-matrix, size features are strongly correlated. 
+
+![Pearson correlation matrix of each numerical feature.](../figures/eda_correlation_heatmap.png){#fig-pearson-corr-matrix}
+
+
+
+# Results 
 We can see that the dataset is quite balanced, as shown in @fig-class-distribution. 
 
 ![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-class-distribution}
@@ -165,6 +178,7 @@ Here is the bar plot of our features based on their importance (magnitude) @fig-
 
 
 
+# Discussion
 
 
 # References
