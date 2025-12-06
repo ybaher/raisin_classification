@@ -227,7 +227,7 @@ axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
 axis_length_scatterplot
 ```
 
-![Scatterplot of the two major measurements.]("ADD PATH HERE"){#fig-measurement-scatterplot}
+![Scatterplot of the two major measurements.]("../eda_scatter_plot.png"){#fig-measurement-scatterplot}
 
 Figure: Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins
 
@@ -256,7 +256,7 @@ correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pe
 correlation_heatmap
 ```
 
-![Pearson correlation matrix of each numerical feature.]("ADD PATH HERE"){#fig-pearson-corr-matrix}
+![Pearson correlation matrix of each numerical feature.]("../figures/eda_correlation_heatmap.png"){#fig-pearson-corr-matrix}
 
 Figure: Pearson correlation matrix of each numerical feature
 
@@ -308,7 +308,13 @@ accuracy
 ```
 
 # Results and Discussion
-We can see that the dataset is quite balanced, as shown in @fig-logreg-conf-matrix which  indicates that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
+We can see that the dataset is quite balanced, as shown in @fig-class-distribution. 
+
+![Class Distribution of Raisin Variety.](../figures/eda_class_distribution.png){#fig-logreg-conf-matrix}
+
+Figure: Class Distribution of Raisin Variety
+
+The confusion matrix of our model @fig-logreg-conf-matrix indicates that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
 
 ![Confusion matrix of the LogisticRegression model.](../results/models/raisin_model_confusion_matrix.png){#fig-logreg-conf-matrix}
 
