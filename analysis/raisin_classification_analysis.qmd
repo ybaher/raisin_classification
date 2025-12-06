@@ -1,17 +1,33 @@
 ---
-title: 'Crazy Raisins: A Raisin Classification Adventure'
+title: "Crazy Raisins: A Raisin Classification Adventure"
+authors:
+  - Yasaman Baher
+  - Shreya Kakachery
+  - Eric Wong
 jupyter: python3
-Authors: Yasaman Baher, Shreya Kakachery, Eric Wong
-output: PDF
-toc: true
-toc-title: "Table of Content"
-toc-depth: 3 
-number-sections: true
+
+format:
+  html:
+    toc: true
+    toc-title: "Table of Contents"
+    toc-depth: 3
+    number-sections: true
+    output-dir: ../docs
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    output-dir: ../docs
+
+bibliography: references.bib
 ---
 
-
-
-
+```{python}
+#| echo: false
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+```
 
 ## Summary:
 Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of $0.876$ and an `F1` score of $0.875$, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
@@ -211,7 +227,9 @@ axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
 axis_length_scatterplot
 ```
 
-*Fig. 4 Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins*
+![Scatterplot of the two major measurements.]("ADD PATH HERE"){#fig-measurement-scatterplot}
+
+Figure: Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins
 
 ```{python}
 correlation_matrix = X.corr().stack().reset_index()
@@ -238,7 +256,9 @@ correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pe
 correlation_heatmap
 ```
 
-*Fig. 5 Pearson correlation matrix of each numerical feature*
+![Pearson correlation matrix of each numerical feature.]("ADD PATH HERE"){#fig-pearson-corr-matrix}
+
+Figure: Pearson correlation matrix of each numerical feature
 
 ```{python}
 # Validate and drop features with high correlation
@@ -266,7 +286,7 @@ else:
 
 # Methods
 ## Data
-The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
+The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
 
 ## Analysis
 The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% and 25% to the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
@@ -288,18 +308,11 @@ accuracy
 ```
 
 # Results and Discussion
-We can see that the dataset is quite balanced and our confusion matrix shows that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
+We can see that the dataset is quite balanced, as shown in @fig-logreg-conf-matrix which  indicates that the model correctly predicts more kecimen raisins than besni. We may improve this model with more samples, hyperparameter optimization, and feature engineering.
 
-```{python}
-from sklearn.metrics import ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
+![Confusion matrix of the LogisticRegression model.](../results/models/raisin_model_confusion_matrix.png){#fig-logreg-conf-matrix}
 
-cm_display = ConfusionMatrixDisplay.from_estimator(clf, X_test, y_test)
-plt.title("Confusion Matrix of the Logistic Regression Model")
-plt.show()
-```
-
-*Fig. 6 Confusion matrix of the LogisticRegression model*
+Figure: Confusion matrix of the LogisticRegression model
 
 ```{python}
 from sklearn.metrics import f1_score
@@ -312,17 +325,6 @@ f1
 # df.to_csv('data/raisin.csv')
 ```
 
-# Citations
-Charvet, A., Brogan Hartlieb, K., Yeh, Y. et al. A comparison of snack serving sizes to USDA guidelines in healthy weight and overweight minority preschool children enrolled in Head Start. BMC Obes 3, 36 (2016). https://doi.org/10.1186/s40608-016-0116-2
-
-Chebil, S., Rjiba-Bahri, W., Oueslati, S. et al. Ochratoxigenic fungi and Ochratoxin A determination in dried grapes marketed in Tunisia. Ann Microbiol 70, 38 (2020). https://doi.org/10.1186/s13213-020-01584-7
-
-Chibuluzo, S., Pitt, T. Raisin allergy in an 8 year old patient. All Asth Clin Immun 10 (Suppl 2), A6 (2014). https://doi.org/10.1186/1710-1492-10-S2-A6
-
-Olmo-Cunillera, Alexandra et al. “Is Eating Raisins Healthy?.” Nutrients vol. 12,1 54. 24 Dec. 2019, doi:10.3390/nu12010054
-
-Rodrigo-Gonzalo, M.J., Recio-Rodríguez, J.I., Méndez-Sánchez, R. et al. Effect of including a dietary supplement of raisins, a food rich in polyphenols, on cognitive function in healthy older adults; a study protocol for a randomized clinical trial. BMC Geriatr 23, 182 (2023). https://doi.org/10.1186/s12877-023-03882-6
-
-Wijayabahu, A.T., Waugh, S.G., Ukhanova, M. et al. Dietary raisin intake has limited effect on gut microbiota composition in adult volunteers. Nutr J 18, 14 (2019). https://doi.org/10.1186/s12937-019-0439-1
+# References
 
 
