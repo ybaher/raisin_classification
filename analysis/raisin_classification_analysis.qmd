@@ -27,6 +27,18 @@ bibliography: references.bib
 import pandas as pd
 from IPython.display import Markdown, display
 from tabulate import tabulate
+from ucimlrepo import fetch_ucirepo
+import altair as alt
+from hashlib import sha1
+import numpy as np
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import pandera.pandas as pa
+from pandera import Column, Check, DataFrameSchema
 ```
 
 ## Summary:
@@ -39,27 +51,13 @@ The results of our analysis could lead to several future directions that could b
 Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
 
 ```{python}
+#| echo: false
 #| scrolled: true
-from ucimlrepo import fetch_ucirepo
-import altair as alt
-import pandas as pd
-from hashlib import sha1
-import numpy as np
-from sklearn.dummy import DummyClassifier
-from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-import matplotlib.pyplot as plt
-import pandera.pandas as pa
-from pandera import Column, Check, DataFrameSchema
-
-
-
 raisin = fetch_ucirepo(id=850)
 ```
 
 ```{python}
+#| echo: false
 df = pd.concat([raisin.data.features, raisin.data.targets], axis=1)
 df["Area"] = df["Area"].astype(float)
 df["ConvexArea"] = df["ConvexArea"].astype(float)
@@ -68,19 +66,30 @@ df
 
 
 ```{python}
+#| echo: false
 X = raisin.data.features     # the features (7 morphological measurements)  
 y = raisin.data.targets      # the class labels (Kecimen vs Besni) 
 ```
 
 ```{python}
+#| echo: false
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 123)
 ```
 
 ```{python}
-X.info()
+#| echo: false
+#| label: tbl-info
+#| tbl-cap: High-level summary of the features in the raisin dataset.
+
+import io
+buffer = io.StringIO()
+X.info(buf=buffer)
+info_text = buffer.getvalue()
+
+Markdown(f"`\n{info_text}\n`")
+
 ```
 
-*Fig. 2 High-level information about the features where all are numerical and have no NULL values*
 
 ```{python}
 #| echo: false
