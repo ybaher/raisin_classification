@@ -72,7 +72,7 @@ With our model, quality control in agriculture and food processing could benefit
 The results of our analysis could lead to several future directions that could be addressed. An important question is which features contribute the most to the classification decisions, and whether other measurements, such as color, texture, or weight, could improve performance. Looking at other classification models could help us create a more reliable model, helping us yield higher accuracy or better class-specific performance. Furthermore, we have to be mindful of how well the classifier generalizes to new batches of raisins, as this could reveal potential overfitting and indicate whether the model performs reliably on unseen data.
 
 ## Introduction
-Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of `r df.shape[0]` samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
+Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
 
 ```{python}
 #| echo: false
@@ -175,7 +175,7 @@ The confusion matrix of our model @fig-logreg-conf-matrix indicates that the mod
 
 Figure: Confusion matrix of the LogisticRegression model
 
-![Bar plot of Feature Coefficients.]("../results/models/raisin_model_feature importance.png"){#fig-coefs-barplot}
+![Bar plot of Feature Coefficients.]("../results/models/raisin_model_feature_importance.png"){#fig-coefs-barplot}
 
 Figure: Bar plot of Feature Coefficients
 
