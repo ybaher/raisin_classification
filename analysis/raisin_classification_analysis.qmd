@@ -89,129 +89,7 @@ X.describe()
 
 *Fig. 3 Statistical overview of the numerical features to determine if any preprocessing is required. Initial thoughts are to use StandardScaler()*
 
-```{python}
-# validating correct file format (CSV)
 
-file_path = "data/raisin.csv"
-
-if file_path.lower().endswith(".csv"):
-    print("Correct file format")
-else:
-    print("Incorrect file format")
-```
-
-```{python}
-# validating column names
-
-expected_cols = [
-    "Area", "MajorAxisLength", "MinorAxisLength", 
-    "Eccentricity", "ConvexArea", "Extent", "Perimeter", "Class"
-]
-
-if set(df.columns) == set(expected_cols):
-    print("Column names are correct")
-else:
-    print("Column names incorrect")
-    print("Expected:", expected_cols)
-    print("Found:", list(df.columns))
-```
-
-```{python}
-# validating correct data types
-
-schema = pa.DataFrameSchema({
-        "Area": pa.Column(float),
-        "MajorAxisLength": pa.Column(float),
-        "MinorAxisLength": pa.Column(float),
-        "Eccentricity": pa.Column(float),
-        "ConvexArea": pa.Column(float),
-        "Extent": pa.Column(float), 
-        "Perimeter": pa.Column(float),
-        "Class": pa.Column(str)})
-```
-
-```{python}
-# validating missingness/null values of each column, making sure its below 5%
-
-raisin_schema = pa.DataFrameSchema(
-    {
-        "Area": pa.Column(
-            float,
-            pa.Check(
-                lambda s: s.isna().mean() <= 0.05,
-                element_wise=False,
-                error="Too many null values in 'Area' column."),
-            nullable=True),
-        "MajorAxisLength": pa.Column(
-            float,
-            pa.Check(
-                lambda s: s.isna().mean() <= 0.05,
-                element_wise=False,
-                error="Too many null values in 'MajorAxisLength' column."),
-            nullable=True),
-        "MinorAxisLength": pa.Column(
-            float,
-            pa.Check(
-                lambda s: s.isna().mean() <= 0.05,
-                element_wise=False,
-                error="Too many null values in 'MinorAxisLength' column."),
-            nullable=True),
-        "Eccentricity": pa.Column(float, nullable=True),
-        "ConvexArea": pa.Column(
-            float,
-            pa.Check(
-                lambda s: s.isna().mean() <= 0.05,
-                element_wise=False,
-                error="Too many null values in 'ConvexArea' column."),
-            nullable=True),
-        "Extent": pa.Column(float, nullable=True),
-        "Perimeter": pa.Column(
-            float,
-            pa.Check(
-                lambda s: s.isna().mean() <= 0.05,
-                element_wise=False,
-                error="Too many null values in 'Perimeter' column."),
-            nullable=True),
-        "Class": pa.Column(
-            str,
-            pa.Check.isin(["Kecimen", "Besni"]))
-    }
-)
-raisin_schema.validate(df)
-```
-
-```{python}
-# Check for duplicate observations in the dataset
-schema = pa.DataFrameSchema(
-    columns={
-        "Area": pa.Column(pa.Int, nullable=False),
-        "Perimeter": pa.Column(pa.Float, nullable=False),
-        "MajorAxisLength": pa.Column(pa.Float, nullable=False),
-        "MinorAxisLength": pa.Column(pa.Float, nullable=False),
-        "Eccentricity": pa.Column(pa.Float, nullable=False),
-        "ConvexArea": pa.Column(pa.Int, nullable=False),
-    }, checks=[
-        pa.Check(lambda df: not df.duplicated().any(), error="Duplicate rows found in the dataset.")
-    ]
-)
-schema.validate(X)
-```
-
-```{python}
-# Check if data is within reasonable ranges using pandera
-range_schema = pa.DataFrameSchema(
-    columns={
-        'Area': pa.Column(pa.Int, pa.Check.in_range(25380, 235050), nullable=False),
-        'Eccentricity': pa.Column(pa.Float, pa.Check.in_range(0.348, 0.9622), nullable=False),
-        'Extent': pa.Column(pa.Float, pa.Check.in_range(0.379, 0.836), nullable=False),
-        'MajorAxisLength': pa.Column(pa.Float, pa.Check.in_range(223.0, 1000), nullable=False),
-        'MinorAxisLength': pa.Column(pa.Float, pa.Check.in_range(140, 495), nullable=False),
-        'Perimeter': pa.Column(pa.Float, pa.Check.in_range(619, 2698), nullable=False),
-        'ConvexArea': pa.Column(pa.Int, pa.Check.in_range(26138, 278218), nullable=False)
-    }
-)
-range_schema.validate(X)
-```
 
 
 
@@ -225,29 +103,7 @@ Figure: Plotting the two major measurements as a scatterplot to see the distribu
 
 Figure: Pearson correlation matrix of each numerical feature
 
-```{python}
-# Validate and drop features with high correlation
-corr_matrix = X.corr().abs()
-upper_tri = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
-to_drop = [column for column in upper_tri.columns if any(upper_tri[column] > 0.9)]
-if to_drop:
-    print(f"Recommend dropping highly correlated features: {to_drop}")
-```
 
-```{python}
-# Validate high target feature correlation
-# Convert target variable to numeric for correlation calculation and validate that there are not features which have high correlation with the target variable
-y_numeric = pd.DataFrame()
-y_numeric['Class_num'] = y['Class'].map({'Kecimen': 0, 'Besni': 1})
-target_corr = pd.concat([X, y_numeric], axis=1).corr().abs()
-target_corr_with_y = target_corr['Class_num'].drop('Class_num')
-high_target_corr = target_corr_with_y[target_corr_with_y > 0.9]
-if not high_target_corr.empty:
-    print("Features with high correlation to target variable:")
-    print(high_target_corr)
-else:
-    print("No features with high correlation to target variable found.")
-```
 
 # Methods
 ## Data
