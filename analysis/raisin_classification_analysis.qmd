@@ -227,7 +227,9 @@ axis_length_scatterplot = alt.Chart(df).mark_circle(size=60).encode(
 axis_length_scatterplot
 ```
 
-*Fig. 4 Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins*
+![Scatterplot of the two major measurements.]("ADD PATH HERE"){#fig-measurement-scatterplot}
+
+Figure: Plotting the two major measurements as a scatterplot to see the distribution of both varieties of raisins
 
 ```{python}
 correlation_matrix = X.corr().stack().reset_index()
@@ -254,7 +256,9 @@ correlation_heatmap = (correlation_heatmap + annotations).properties(title = 'Pe
 correlation_heatmap
 ```
 
-*Fig. 5 Pearson correlation matrix of each numerical feature*
+![Pearson correlation matrix of each numerical feature.]("ADD PATH HERE"){#fig-pearson-corr-matrix}
+
+Figure: Pearson correlation matrix of each numerical feature
 
 ```{python}
 # Validate and drop features with high correlation
