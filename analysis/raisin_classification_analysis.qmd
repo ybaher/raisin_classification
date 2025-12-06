@@ -59,8 +59,6 @@ weighted_f1 = round(weighted_f1, 3)
 
 # Summary
 
-testing `{python} accuracy` 
-
 In this project, we built a classification model using logistic regression to predict raisin varieties—Besni and Kecimen—based on morphological measurements extracted from digitized raisin images. Several of the size-related features, such as `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea`, were found to be strongly correlated. This suggests redundancy among these predictors, whereas features like `Eccentricity` and `Extent` provide more distinct shape information that may help refine classification.
 
 Our model achieved an accuracy of `{python} accuracy`  and a weighted F1 score of `{python} weighted_f1`, indicating strong and balanced performance across both classes. The similarity of these two metrics suggests that the class distribution is not heavily skewed. However, the correlation heatmap shows that size-based measurements dominate the feature set, which could cause the model to over-rely on redundant information and increase the risk of overfitting.
@@ -102,7 +100,6 @@ raisin = fetch_ucirepo(id=850)
 df = pd.concat([raisin.data.features, raisin.data.targets], axis=1)
 df["Area"] = df["Area"].astype(float)
 df["ConvexArea"] = df["ConvexArea"].astype(float)
-df
 ```
 
 
@@ -127,12 +124,23 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = test_size,
 #| label: tbl-info
 #| tbl-cap: High-level summary of the features in the raisin dataset.
 
-import io
-buffer = io.StringIO()
-X.info(buf=buffer)
-info_text = buffer.getvalue()
+# import io
+# buffer = io.StringIO()
+# X.info(buf=buffer)
+# info_text = buffer.getvalue()
 
-Markdown(f"`\n{info_text}\n`")
+# Markdown(f"`\n{info_text}\n`")
+
+import pandas as pd
+
+info = pd.DataFrame({
+    "Column": X.columns,
+    "Non-Null Count": X.notnull().sum(),
+    "Dtype": X.dtypes
+})
+
+Markdown(info.to_markdown())
+
 
 ```
 
@@ -185,7 +193,7 @@ The feature coefficient plot (@fig-coefs-barplot) highlights which variables con
 ![Bar plot of Feature Coefficients.](../results/models/raisin_model_feature_importance.png){#fig-coefs-barplot}
 
 
-The model had an accuracy of `{python} accuracy` and a weighted f1 score of `{python} ` .
+The model had an accuracy of `{python} accuracy` and a weighted f1 score of `{python} weighted_f1` .
 
 # Discussion
 
