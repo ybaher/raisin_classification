@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "analysis/index.html",
+    "href": "analysis/index.html",
+    "title": "Crazy Raisins: A Raisin Classification Adventure",
+    "section": "",
+    "text": "In this project, we built a classification model using logistic regression to predict raisin varieties—Besni and Kecimen—based on morphological measurements extracted from digitized raisin images. Several of the size-related features, such as Area, Perimeter, MajorAxisLength, and ConvexArea, were found to be strongly correlated. This suggests redundancy among these predictors, whereas features like Eccentricity and Extent provide more distinct shape information that may help refine classification.\nOur model achieved an accuracy of 0.911 and a weighted F1 score of 0.911, indicating strong and balanced performance across both classes. The similarity of these two metrics suggests that the class distribution is not heavily skewed. However, the correlation heatmap shows that size-based measurements dominate the feature set, which could cause the model to over-rely on redundant information and increase the risk of overfitting.\nThe confusion matrix reveals that while the model performs well overall, some misclassifications occur where the two raisin types have overlapping visual characteristics. This is expected in real-world applications, where similar shape profiles can blur the distinction between varieties.\nThis classifier has practical implications for quality control in agriculture and food processing, where automated classification could reduce labor costs, improve consistency, and minimize human error. At the same time, misclassifications highlight the need for caution in applications involving labeling or pricing decisions.\nFuture work may include investigating which features contribute most to the model’s decisions, incorporating additional measurements such as color or texture, and experimenting with alternative machine learning algorithms. Evaluating the model’s generalizability on new raisin batches is also essential to ensure it performs reliably beyond this dataset."
+  },
+  {
+    "objectID": "analysis/index.html#background",
+    "href": "analysis/index.html#background",
+    "title": "Crazy Raisins: A Raisin Classification Adventure",
+    "section": "2.1 Background",
+    "text": "2.1 Background\nMorphological measurements, such as area, perimeter, and axis lengths, capture important geometric properties that may distinguish different raisin types. Because these biological shapes vary naturally, analyzing their quantitative characteristics can reveal patterns that are not easily detectable by simple visual inspection."
+  },
+  {
+    "objectID": "analysis/index.html#motivation",
+    "href": "analysis/index.html#motivation",
+    "title": "Crazy Raisins: A Raisin Classification Adventure",
+    "section": "2.2 Motivation",
+    "text": "2.2 Motivation\nOur goal is to determine whether raisin variety can be accurately predicted using these measured properties. If successful, this type of model could support automated inspection systems in agriculture and food processing, reduce human error, and help standardize quality control. This analysis also helps us understand which features are most informative and whether logistic regression is an appropriate model for this classification task."
+  },
+  {
+    "objectID": "analysis/index.html#data",
+    "href": "analysis/index.html#data",
+    "title": "Crazy Raisins: A Raisin Classification Adventure",
+    "section": "3.1 Data",
+    "text": "3.1 Data\nThe dataset used in this project consists of digitized raisin images provided by İ̇lkay Çınar, Murat Koklu, and Şakir Taşdemir from Selçuk University (Çinar, Koklu, and Tasdemir 2019). The dataset is available through the UCI Machine Learning Repository and was imported using the ucimlrepo Python library. The data can be obtained from [here]. Each observation corresponds to a single raisin and includes seven numerical features capturing its morphological properties. Every raisin belongs to one of two varieties: Besni or Kecimen.\nA standard 75%/25% train–test split was used to create separate datasets for model training and evaluation\nTable 1 provides a high-level summary of the dataset structure:\n\n\n\n\nTable 1: High-level summary of the features in the raisin dataset.\n\n\n\n\n\n\n\nColumn\nNon-Null Count\nDtype\n\n\n\n\nArea\nArea\n900\nint64\n\n\nMajorAxisLength\nMajorAxisLength\n900\nfloat64\n\n\nMinorAxisLength\nMinorAxisLength\n900\nfloat64\n\n\nEccentricity\nEccentricity\n900\nfloat64\n\n\nConvexArea\nConvexArea\n900\nint64\n\n\nExtent\nExtent\n900\nfloat64\n\n\nPerimeter\nPerimeter\n900\nfloat64\n\n\n\n\n\n\n\n\nTable 2 provides the descriptive statistics for the numerical features:\n\n\n\n\nTable 2: Statistical summary of numerical features in the raisin dataset.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nArea\nMajorAxisLength\nMinorAxisLength\nEccentricity\nConvexArea\nExtent\nPerimeter\n\n\n\n\ncount\n900\n900\n900\n900\n900\n900\n900\n\n\nmean\n87804.1\n430.93\n254.488\n0.781542\n91186.1\n0.699508\n1165.91\n\n\nstd\n39002.1\n116.035\n49.9889\n0.0903184\n40769.3\n0.0534682\n273.764\n\n\nmin\n25387\n225.63\n143.711\n0.34873\n26139\n0.379856\n619.074\n\n\n25%\n59348\n345.443\n219.111\n0.741766\n61513.2\n0.670869\n966.411\n\n\n50%\n78902\n407.804\n247.848\n0.798846\n81651\n0.707367\n1119.51\n\n\n75%\n105028\n494.187\n279.889\n0.842571\n108376\n0.734991\n1308.39\n\n\nmax\n235047\n997.292\n492.275\n0.962124\n278217\n0.835455\n2697.75"
+  },
+  {
+    "objectID": "analysis/index.html#analysis",
+    "href": "analysis/index.html#analysis",
+    "title": "Crazy Raisins: A Raisin Classification Adventure",
+    "section": "3.2 Analysis",
+    "text": "3.2 Analysis\nThe LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model."
+  }
+]

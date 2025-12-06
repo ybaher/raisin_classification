@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.8.26" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Crazy Raisins: A Raisin Classification Adventure</title>
@@ -44,7 +42,24 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-733228ea078e20c7b96c3ff9182bbede.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -76,7 +91,7 @@ div.csl-indent {
 
 </head>
 
-<body>
+<body class="quarto-light">
 
 <div id="quarto-search-results"></div>
 <!-- content -->
@@ -84,7 +99,27 @@ div.csl-indent {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary"><span class="header-section-number">1</span> Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">2.1</span> Background</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">2.2</span> Motivation</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">3</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">3.1</span> Data</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">3.2</span> Analysis</a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5</span> Results</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">6</span> Discussion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.html.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -115,27 +150,7 @@ div.csl-indent {
 
 </header>
 
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of Contents</h2>
-   
-  <ul>
-  <li><a href="#summary" id="toc-summary"><span class="header-section-number">1</span> Summary</a></li>
-  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">2</span> Introduction</a>
-  <ul>
-  <li><a href="#background" id="toc-background"><span class="header-section-number">2.1</span> Background</a></li>
-  <li><a href="#motivation" id="toc-motivation"><span class="header-section-number">2.2</span> Motivation</a></li>
-  </ul></li>
-  <li><a href="#methods" id="toc-methods"><span class="header-section-number">3</span> Methods</a>
-  <ul>
-  <li><a href="#data" id="toc-data"><span class="header-section-number">3.1</span> Data</a></li>
-  <li><a href="#analysis" id="toc-analysis"><span class="header-section-number">3.2</span> Analysis</a></li>
-  </ul></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
-  <li><a href="#results" id="toc-results"><span class="header-section-number">5</span> Results</a></li>
-  <li><a href="#discussion" id="toc-discussion"><span class="header-section-number">6</span> Discussion</a></li>
-  <li><a href="#references" id="toc-references"><span class="header-section-number">7</span> References</a></li>
-  </ul>
-</nav>
+
 <section id="summary" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Summary</h1>
 <p>In this project, we built a classification model using logistic regression to predict raisin varieties—Besni and Kecimen—based on morphological measurements extracted from digitized raisin images. Several of the size-related features, such as <code>Area</code>, <code>Perimeter</code>, <code>MajorAxisLength</code>, and <code>ConvexArea</code>, were found to be strongly correlated. This suggests redundancy among these predictors, whereas features like <code>Eccentricity</code> and <code>Extent</code> provide more distinct shape information that may help refine classification.</p>
@@ -149,30 +164,30 @@ div.csl-indent {
 <p>Raisins are dried grapes, and like their fresh counterparts, different varieties vary in taste, texture, sweetness, and appearance. Beyond being a common snack, raisins are associated with various health benefits, such as increased raisin consumption has been linked to improved diet quality and reduced appetite <span class="citation" data-cites="olmo2019raisins">(<a href="#ref-olmo2019raisins" role="doc-biblioref">Olmo-Cunillera et al. 2019</a>)</span>. Accurately identifying raisin varieties can be useful in food processing, quality control, and consumer preference studies.</p>
 <p>The dataset used in this project consists of morphological measurements extracted from images of 900 raisins belonging to the Besni and Kecimen varieties, obtained from the UCI Machine Learning Repository. Each sample includes seven numerical features describing the size and shape of a raisin.</p>
 <section id="background" class="level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Background</h2>
+<h2 data-number="2.1" class="anchored" data-anchor-id="background"><span class="header-section-number">2.1</span> Background</h2>
 <p>Morphological measurements, such as area, perimeter, and axis lengths, capture important geometric properties that may distinguish different raisin types. Because these biological shapes vary naturally, analyzing their quantitative characteristics can reveal patterns that are not easily detectable by simple visual inspection.</p>
 </section>
 <section id="motivation" class="level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Motivation</h2>
+<h2 data-number="2.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">2.2</span> Motivation</h2>
 <p>Our goal is to determine whether raisin variety can be accurately predicted using these measured properties. If successful, this type of model could support automated inspection systems in agriculture and food processing, reduce human error, and help standardize quality control. This analysis also helps us understand which features are most informative and whether logistic regression is an appropriate model for this classification task.</p>
 </section>
 </section>
 <section id="methods" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
 <section id="data" class="level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Data</h2>
+<h2 data-number="3.1" class="anchored" data-anchor-id="data"><span class="header-section-number">3.1</span> Data</h2>
 <p>The dataset used in this project consists of digitized raisin images provided by İ̇lkay Çınar, Murat Koklu, and Şakir Taşdemir from Selçuk University <span class="citation" data-cites="cinar2019raisin">(<a href="#ref-cinar2019raisin" role="doc-biblioref">Çinar, Koklu, and Tasdemir 2019</a>)</span>. The dataset is available through the UCI Machine Learning Repository and was imported using the ucimlrepo Python library. The data can be obtained from [<a href="https://archive.ics.uci.edu/dataset/850/raisin">here</a>]. Each observation corresponds to a single raisin and includes seven numerical features capturing its morphological properties. Every raisin belongs to one of two varieties: Besni or Kecimen.</p>
 <p>A standard 75%/25% train–test split was used to create separate datasets for model training and evaluation</p>
-<p><a href="#tbl-info" class="quarto-xref">Table 1</a> provides a high-level summary of the dataset structure:</p>
+<p><a href="#tbl-info" class="quarto-xref">Table&nbsp;1</a> provides a high-level summary of the dataset structure:</p>
 <div class="cell" data-execution_count="7">
-<div id="tbl-info" class="cell quarto-float quarto-figure quarto-figure-center" data-execution_count="7">
-<figure class="quarto-float quarto-float-tbl">
+<div id="tbl-info" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="7">
+<figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 1: High-level summary of the features in the raisin dataset.
+Table&nbsp;1: High-level summary of the features in the raisin dataset.
 </figcaption>
 <div aria-describedby="tbl-info-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
-<table class="do-not-create-environment cell caption-top">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -231,25 +246,25 @@ Table 1: High-level summary of the features in the raisin dataset.
 </figure>
 </div>
 </div>
-<p><a href="#tbl-describe" class="quarto-xref">Table 2</a> provides the descriptive statistics for the numerical features:</p>
+<p><a href="#tbl-describe" class="quarto-xref">Table&nbsp;2</a> provides the descriptive statistics for the numerical features:</p>
 <div class="cell" data-execution_count="8">
-<div id="tbl-describe" class="cell quarto-float quarto-figure quarto-figure-center" data-execution_count="8">
-<figure class="quarto-float quarto-float-tbl">
+<div id="tbl-describe" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="8">
+<figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-describe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 2: Statistical summary of numerical features in the raisin dataset.
+Table&nbsp;2: Statistical summary of numerical features in the raisin dataset.
 </figcaption>
 <div aria-describedby="tbl-describe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
-<table class="do-not-create-environment cell caption-top">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 6%" />
-<col style="width: 9%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 14%" />
-<col style="width: 12%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -353,67 +368,67 @@ Table 2: Statistical summary of numerical features in the raisin dataset.
 </div>
 </section>
 <section id="analysis" class="level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Analysis</h2>
+<h2 data-number="3.2" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.2</span> Analysis</h2>
 <p>The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model.</p>
 </section>
 </section>
 <section id="exploratory-data-analysis" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Exploratory Data Analysis</h1>
-<p>We began our EDA by visualizing the two major axis measurements. The scatterplot in <a href="#fig-measurement-scatterplot" class="quarto-xref">Figure 1</a> shows visible separation between the two raisin varieties based on these measurements.</p>
-<div id="fig-measurement-scatterplot" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
+<p>We began our EDA by visualizing the two major axis measurements. The scatterplot in <a href="#fig-measurement-scatterplot" class="quarto-xref">Figure&nbsp;1</a> shows visible separation between the two raisin varieties based on these measurements.</p>
+<div id="fig-measurement-scatterplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-measurement-scatterplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../figures/eda_scatter_plot.png" class="img-fluid" />
+<img src="../figures/eda_scatter_plot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-measurement-scatterplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 1: Scatterplot of the two major measurements.
+Figure&nbsp;1: Scatterplot of the two major measurements.
 </figcaption>
 </figure>
 </div>
-<p>Next, the Pearson correlation matrix shown in <a href="#fig-pearson-corr-matrix" class="quarto-xref">Figure 2</a> reveals strong correlations among size-related features such as Area, Perimeter, and ConvexArea. These relationships suggest redundancy among size metrics and highlight the importance of including shape-based descriptors.</p>
-<div id="fig-pearson-corr-matrix" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
+<p>Next, the Pearson correlation matrix shown in <a href="#fig-pearson-corr-matrix" class="quarto-xref">Figure&nbsp;2</a> reveals strong correlations among size-related features such as Area, Perimeter, and ConvexArea. These relationships suggest redundancy among size metrics and highlight the importance of including shape-based descriptors.</p>
+<div id="fig-pearson-corr-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pearson-corr-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../figures/eda_correlation_heatmap.png" class="img-fluid" />
+<img src="../figures/eda_correlation_heatmap.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pearson-corr-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 2: Pearson correlation matrix of each numerical feature.
+Figure&nbsp;2: Pearson correlation matrix of each numerical feature.
 </figcaption>
 </figure>
 </div>
-<p>The dataset contains a nearly even number of Besni and Kecimen raisins, as shown in <a href="#fig-class-distribution" class="quarto-xref">Figure 3</a>. This balance is beneficial for classification performance because it reduces the risk of a model over-emphasizing one class.</p>
-<div id="fig-class-distribution" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
+<p>The dataset contains a nearly even number of Besni and Kecimen raisins, as shown in <a href="#fig-class-distribution" class="quarto-xref">Figure&nbsp;3</a>. This balance is beneficial for classification performance because it reduces the risk of a model over-emphasizing one class.</p>
+<div id="fig-class-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../figures/eda_class_distribution.png" class="img-fluid" />
+<img src="../figures/eda_class_distribution.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-class-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 3: Class Distribution of Raisin Variety.
+Figure&nbsp;3: Class Distribution of Raisin Variety.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="results" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Results</h1>
-<p>The confusion matrix for the Logistic Regression classifier (<a href="#fig-logreg-conf-matrix" class="quarto-xref">Figure 4</a>) shows that the model performs strongly overall but exhibits slightly better performance for the Kecimen class. Misclassifications occur in both directions, suggesting that some raisins share similar morphological properties that make them difficult to distinguish.</p>
-<div id="fig-logreg-conf-matrix" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
+<p>The confusion matrix for the Logistic Regression classifier (<a href="#fig-logreg-conf-matrix" class="quarto-xref">Figure&nbsp;4</a>) shows that the model performs strongly overall but exhibits slightly better performance for the Kecimen class. Misclassifications occur in both directions, suggesting that some raisins share similar morphological properties that make them difficult to distinguish.</p>
+<div id="fig-logreg-conf-matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-logreg-conf-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/models/raisin_model_confusion_matrix.png" class="img-fluid" />
+<img src="../results/models/raisin_model_confusion_matrix.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-logreg-conf-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 4: Confusion matrix of the LogisticRegression model.
+Figure&nbsp;4: Confusion matrix of the LogisticRegression model.
 </figcaption>
 </figure>
 </div>
-<p>The feature coefficient plot (<a href="#fig-coefs-barplot" class="quarto-xref">Figure 5</a>) highlights which variables contribute most strongly to the model’s predictions. Since Logistic Regression coefficients reflect the importance of standardized features, the magnitude of each bar indicates how strongly that feature influences classification. Size-related features appear dominant, reinforcing earlier observations from the correlation matrix.</p>
-<div id="fig-coefs-barplot" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
+<p>The feature coefficient plot (<a href="#fig-coefs-barplot" class="quarto-xref">Figure&nbsp;5</a>) highlights which variables contribute most strongly to the model’s predictions. Since Logistic Regression coefficients reflect the importance of standardized features, the magnitude of each bar indicates how strongly that feature influences classification. Size-related features appear dominant, reinforcing earlier observations from the correlation matrix.</p>
+<div id="fig-coefs-barplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-coefs-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/models/raisin_model_feature_importance.png" class="img-fluid" />
+<img src="../results/models/raisin_model_feature_importance.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coefs-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 5: Bar plot of Feature Coefficients.
+Figure&nbsp;5: Bar plot of Feature Coefficients.
 </figcaption>
 </figure>
 </div>
@@ -427,25 +442,21 @@ Figure 5: Bar plot of Feature Coefficients.
 <p>These findings indicate that while the current model performs well for basic classification, there is strong potential for further improvement with more sophisticated modeling techniques and a richer feature set.</p>
 </section>
 <section id="references" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">Crazy Raisins: A Raisin Classification Adventure</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">Crazy Raisins: A Raisin Classification Adventure</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">Crazy Raisins: A Raisin Classification Adventure</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">Crazy Raisins: A Raisin Classification Adventure</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">Crazy Raisins: A Raisin Classification Adventure</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj"></span></p>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">7 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-cinar2019raisin" class="csl-entry" role="listitem">
 Çinar, İ̇lkay, Murat Koklu, and Sakir Tasdemir. 2019. <span>“Raisin Dataset.”</span> <a href="https://archive.ics.uci.edu/dataset/850/raisin" class="uri">https://archive.ics.uci.edu/dataset/850/raisin</a>.
 </div>
 <div id="ref-olmo2019raisins" class="csl-entry" role="listitem">
 Olmo-Cunillera, Alexandra et al. 2019. <span>“Is Eating Raisins Healthy?”</span> <em>Nutrients</em> 12 (1): 54. <a href="https://doi.org/10.3390/nu12010054">https://doi.org/10.3390/nu12010054</a>.
 </div>
-</div>
-</section>
-
-</main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -847,6 +858,7 @@ Olmo-Cunillera, Alexandra et al. 2019. <span>“Is Eating Raisins Healthy?”</s
   </script>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>
