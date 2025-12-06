@@ -105,10 +105,10 @@ def main(input_path, output_dir):
     # -----------------------------
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     
-    # Save as HTML files (no additional dependencies required)
-    scatter_path = os.path.join(output_dir, "eda_scatter_plot.html")
-    heatmap_path = os.path.join(output_dir, "eda_correlation_heatmap.html")
-    distribution_path = os.path.join(output_dir, "eda_class_distribution.html")
+    # Save as png files (no additional dependencies required)
+    scatter_path = os.path.join(output_dir, "eda_scatter_plot.png")
+    heatmap_path = os.path.join(output_dir, "eda_correlation_heatmap.png")
+    distribution_path = os.path.join(output_dir, "eda_class_distribution.png")
     
     axis_length_scatterplot.save(scatter_path)
     correlation_heatmap.save(heatmap_path)
