@@ -146,18 +146,26 @@ The final report can be found at this [link](https://github.com/ybaher/raisin_cl
 
 name: craisins
 channels:
-
-- conda-forge
-  dependencies:
-- python=3.9
-- pandas
-- altair
-- numpy
-- ipykernel
-- scikit-learn
-- matplotlib
-- pip:
-  - ucimlrepo
+  - conda-forge
+dependencies:
+  - python=3.9
+  - ipykernel=6.30.1
+  - conda-lock=3.0.4
+  # - jupyterlab
+  # - mamba
+  # - conda
+  # - quarto>=1.8
+  - pip:
+      - ucimlrepo==0.0.7
+      - pandera
+      - pandas==2.3.1
+      - altair==5.5.0
+      - numpy==2.0.2
+      - scikit-learn==1.6.1
+      - matplotlib==3.9.1
+      - click
+      - jupyterlab==4.5.0
+      - vl-convert-python
 
 ## License
 
