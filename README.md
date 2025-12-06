@@ -113,19 +113,22 @@ python scripts/01_data_acquisition.py \
     data/raisin.csv \
     data/raw/raisin_data.csv
 ```
-
 ```
 python scripts/02_data_cleaning.py \
     data/raw/raisin_data.csv \
     data/processed/raisin_cleaned.csv
 ```
 ```
-python scripts/03_data_visualization.py \
+python scripts/03_data_validation.py \
+    data/processed/raisin_cleaned_train.csv
+```
+```
+python scripts/04_data_visualization.py \
     data/processed/raisin_cleaned.csv \
     results/figures
 ```
 ```
-python scripts/04_model_fitting.py \
+python scripts/05_model_fitting.py \
     data/processed/raisin_cleaned_train.csv \
     data/processed/raisin_cleaned_test.csv \
     results/models/raisin_model
