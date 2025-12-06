@@ -282,7 +282,7 @@ else:
 
 # Methods
 ## Data
-The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
+The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
 
 ## Analysis
 The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% and 25% to the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
