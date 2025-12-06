@@ -169,6 +169,7 @@ dependencies:
       - click
       - jupyterlab==4.5.0
       - vl-convert-python
+      - tabulate
 ```
 
 ## License
