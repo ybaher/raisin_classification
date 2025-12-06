@@ -41,14 +41,38 @@ import pandera.pandas as pa
 from pandera import Column, Check, DataFrameSchema
 ```
 
+
+```{python}
+#| echo: false
+
+summary_path = "../results/models/raisin_model_model_summary.txt"
+
+with open(summary_path) as f:
+    lines = f.readlines()
+
+# Extract Accuracy
+for line in lines:
+    if line.startswith("Accuracy"):
+        accuracy = float(line.split()[1])
+        break
+
+# Extract weighted F1
+for i, line in enumerate(lines):
+    if "weighted avg" in line:
+        weighted_f1 = float(line.split()[3])
+        break
+```
+
+
+
 ## Summary:
-Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of $0.876$ and an `F1` score of $0.875$, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
+Here, we are attempting to build a classification model using the logistic regression algorithm which use data derived from images of raisins to predict raisin varieties, specifically Bensi and Kecimen. From our model, we can see that many of the size-related features like `Area`, `Perimeter`, `MajorAxisLength`, and `ConvexArea` are strongly related. This means that these features are redundant, and show up more than other features. Other features like `Eccentricity` and `Extent` give us a more unique shape information of the raisin. We can also see from the summary statistics table that our dataset has a wide range of variability in size, therefore, size by itself may distinguish classes but shape metrics could help us refine classification better. With an `accuracy` score of `{accuracy:.3f}` and a weighted `F1` score of `{weighted_f1:.3f}`, we can see that our classifier performs well, and since both values are close to one another, we can assume that the class is balanced and not heavily skewed. With our heatmap, we can see a strong correlation between the size feature, which is likely to dominate the classifier's decision. This, however, could be a caveat. Since many of our features are highly correlated, our model may be overfitting and/or relying on redundant features. <br>
 The performance of our model was aligned with what our team expected. With the high accuracy and F1 score, we can assume that features such as `Area`, `Perimeter`, `MajorAxisLength` are meaningful and make an impact when distinguishing between the raisins. Our confusion matrix, however, showed that some classes were misclassified, leading to overlapping in physical characteristics. This makes sense as it would be harder for the model to classify raisins that are visually similar to one another. <br>
 With our model, quality control in agriculture and food processing could benefit tremendously as it would allow them to classify and differentiate between raisins that are in good shape, and edible and those that are not. With a high overall accuracy, we can assume that our model would help these industries could save labor, and have the classifier reliably distinguish between raisin types, reducing human error. At the same time, the misclassifications show areas where errors could happen, which could impact labeling, packaging, or pricing decisions if not addressed. <br>
 The results of our analysis could lead to several future directions that could be addressed. An important question is which features contribute the most to the classification decisions, and whether other measurements, such as color, texture, or weight, could improve performance. Looking at other classification models could help us create a more reliable model, helping us yield higher accuracy or better class-specific performance. Furthermore, we have to be mindful of how well the classifier generalizes to new batches of raisins, as this could reveal potential overfitting and indicate whether the model performs reliably on unseen data.
 
 ## Introduction
-Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of 900 samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
+Raisins are dried grapes although other small berries and fruit may be dried using the same methodology of raisins. Just like their undried form, raisins of different varieties may differ in taste, chewiness, sweetness, etc. They provide a variety of health benefits which include: "... a better diet quality and may reduce appetite."(Olmo-Cunillera et al. 1) The analysis below will attempt to predict which variety of raisins are based on data derived from multiple images taken of `r df.shape[0]` samples. The dataset is obtained from the UCI database archive and contains numeric features all indicating the properties of the sampled raisin. If our model can accurately predict the species of raisins given it's measured properties, we can avoid eating raisins that are not to our preference.
 
 ```{python}
 #| echo: false
@@ -73,7 +97,8 @@ y = raisin.data.targets      # the class labels (Kecimen vs Besni)
 
 ```{python}
 #| echo: false
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 123)
+test_size = 0.25
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = test_size, random_state = 123)
 ```
 
 ```{python}
@@ -119,7 +144,7 @@ Figure: Pearson correlation matrix of each numerical feature
 The dataset used in this project is the digitized raisin images by İ̇lkay Çinar, Murat Koklu, and Sakir Tasdemir from Selcuck University [@cinar2019raisin]. The data can be obtained from [[here](https://archive.ics.uci.edu/dataset/850/raisin)] and was imported through the ucimlrepo python library. Each row represents a measurement of a raisin belonging to either the Besni or Kecimen variety.
 
 ## Analysis
-The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% and 25% to the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
+The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split `r int((1-test_size)*100)`% / `r int(test_size*100)`% into the training and test datasets respectively. We obtained an accuracy of 87.56% with our model.
 
 ```{python}
 # Added conversion of y to numpy array to avoid warning when fitting model
