@@ -63,7 +63,7 @@ http://localhost:8888
 Your project files inside the repository will appear in the container at:
 
 ```arduino
-/home/jovyan/work
+/workplace
 ```
 
 ### 5. GitHub Actions: Automate Image Publishing
