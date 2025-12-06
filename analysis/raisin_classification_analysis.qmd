@@ -1,12 +1,25 @@
 ---
-title: 'Crazy Raisins: A Raisin Classification Adventure'
+title: "Crazy Raisins: A Raisin Classification Adventure"
+authors:
+  - Yasaman Baher
+  - Shreya Kakachery
+  - Eric Wong
 jupyter: python3
-Authors: Yasaman Baher, Shreya Kakachery, Eric Wong
-output: PDF
-toc: true
-toc-title: "Table of Content"
-toc-depth: 3 
-number-sections: true
+
+format:
+  html:
+    toc: true
+    toc-title: "Table of Contents"
+    toc-depth: 3
+    number-sections: true
+    output-dir: ../docs
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    output-dir: ../docs
+
+bibliography: references.bib
 ---
 
 
