@@ -66,7 +66,6 @@ df["ConvexArea"] = df["ConvexArea"].astype(float)
 df
 ```
 
-*Fig. 1 Raw dataframe*
 
 ```{python}
 X = raisin.data.features     # the features (7 morphological measurements)  
@@ -84,11 +83,12 @@ X.info()
 *Fig. 2 High-level information about the features where all are numerical and have no NULL values*
 
 ```{python}
-X.describe()
+#| echo: false
+#| label: tbl-describe
+#| tbl-cap: Statistical summary of numerical features in the raisin dataset.
+
+Markdown(X.describe().to_markdown())
 ```
-
-*Fig. 3 Statistical overview of the numerical features to determine if any preprocessing is required. Initial thoughts are to use StandardScaler()*
-
 
 
 
