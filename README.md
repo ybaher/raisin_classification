@@ -144,6 +144,7 @@ The final report can be found at this [link](https://github.com/ybaher/raisin_cl
 
 ## Dependencies
 
+```yaml
 name: craisins
 channels:
   - conda-forge
@@ -151,10 +152,6 @@ dependencies:
   - python=3.9
   - ipykernel=6.30.1
   - conda-lock=3.0.4
-  # - jupyterlab
-  # - mamba
-  # - conda
-  # - quarto>=1.8
   - pip:
       - ucimlrepo==0.0.7
       - pandera
@@ -166,6 +163,7 @@ dependencies:
       - click
       - jupyterlab==4.5.0
       - vl-convert-python
+```
 
 ## License
 
