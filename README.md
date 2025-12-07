@@ -141,8 +141,12 @@ quarto render ./analysis/raisin_classification_analysis.qmd --to pdf
 Note: Windows/MacOS users may need to install TinyTex to successfully render PDF
 
 ```
-quarto install tinytex
+quarto install tinytex 
 ```
+
+## Clean up
+
+To shut down the container and clean everything up, type `Ctrl + C` in the terminal where you launched it, then run `docker compose rm`.
 
 ## Report
 
