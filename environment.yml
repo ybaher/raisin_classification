@@ -21,4 +21,4 @@ dependencies:
       - jupyterlab==4.5.0
       - vl-convert-python
       - tabulate
-      - pytest==9.0.2
+      - pytest==8.4.2
