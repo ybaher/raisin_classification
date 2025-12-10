@@ -18,6 +18,11 @@ RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate dockerlock"
 # this ensures that we are starting from an activated dockerlock environment
 SHELL ["/bin/bash", "-l", "-c"]
 
+# Get make and its dependencies
+RUN apt install build-essential -y --no-install-recommends
+# Tinytex for latex pdf rendering
+RUN quarto install tinytex
+
 # expose JupyterLab port
 EXPOSE 8888
 
