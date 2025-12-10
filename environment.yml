@@ -22,3 +22,7 @@ dependencies:
       - vl-convert-python
       - tabulate
       - pytest==8.4.2
+      - jupyter
+      - nbformat=5.10.4
+      - nbclient=0.10.2
+      - pyyaml
