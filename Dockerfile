@@ -19,7 +19,7 @@ RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate dockerlock"
 SHELL ["/bin/bash", "-l", "-c"]
 
 # Get make and its dependencies
-RUN apt install build-essential -y --no-install-recommends
+RUN apt-get update && apt-get install make
 # Tinytex for latex pdf rendering
 RUN quarto install tinytex
 
