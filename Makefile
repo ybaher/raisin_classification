@@ -2,12 +2,15 @@
 
 all: report
 
-data/raw/raisin_data.csv: scripts/sc1_data_acquisition.py
+data/processed:
+	mkdir data/processed
+
+data/raw/raisin_data.csv: scripts/sc1_data_acquisition.py data/processed
 	python scripts/sc1_data_acquisition.py \
 		data/raisin.csv \
 		data/raw/raisin_data.csv
 
-data/processed/raisin_cleaned.csv: scripts/sc2_data_cleaning.py data/raw/raisin_data.csv
+data/processed/raisin_cleaned.csv: scripts/sc2_data_cleaning.py data/raw/raisin_data.csv data/processed
 	python scripts/sc2_data_cleaning.py \
 		data/raw/raisin_data.csv \
         data/processed/raisin_cleaned.csv
