@@ -1,3 +1,10 @@
+"""
+Validates data used for subsequent scripts
+
+Usage:
+    python 03_data_validation.py <input_path>
+"""
+
 import pandera as pa
 import pandas as pd
 import numpy as np
