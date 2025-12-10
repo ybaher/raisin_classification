@@ -2,7 +2,7 @@
 Downloads data from URL or reads from local path and saves it locally. 
 
 Usage:
-    python 01_data_acquisition.py <input_path_or_url> <output_path>
+    python s1_data_acquisition.py <input_path_or_url> <output_path>
 """
 import click
 import pandas as pd

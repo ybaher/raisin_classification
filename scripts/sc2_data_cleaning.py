@@ -2,7 +2,7 @@
 Cleans and processes raw data and outputs clean data
 
 Usage:
-    python 02_data_cleanning.py <input_path> <output_path>
+    python s2_data_cleanning.py <input_path> <output_path>
 """
 
 import click

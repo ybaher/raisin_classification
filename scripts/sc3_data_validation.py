@@ -2,7 +2,7 @@
 Validates data used for subsequent scripts.
 
 Usage:
-    python 03_data_validation.py <input_path>
+    python s3_data_validation.py <input_path>
 """
 
 import pandera as pa

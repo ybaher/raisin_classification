@@ -2,7 +2,7 @@
 Fit a logistic regression model and generate model evaluation artifacts.
 
 Usage:
-    python 05_model_fitting.py <train_data_path> <test_data_path> <output_prefix>
+    python s5_model_fitting.py <train_data_path> <test_data_path> <output_prefix>
 """
 
 import click
