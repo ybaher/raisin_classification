@@ -20,8 +20,6 @@ SHELL ["/bin/bash", "-l", "-c"]
 
 # Get make and its dependencies
 RUN apt-get update && apt-get install make
-# Tinytex for latex pdf rendering
-RUN quarto install tinytex
 
 # expose JupyterLab port
 EXPOSE 8888
