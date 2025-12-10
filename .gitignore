@@ -3,3 +3,5 @@
 .vscode/
 /.quarto/
 **/*.quarto_ipynb
+scripts/tests/__pycache__/test_data_validation.cpython-39-pytest-8.4.2.pyc
+scripts/__pycache__/sc3_data_validation.cpython-39.pyc
