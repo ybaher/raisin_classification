@@ -2,7 +2,7 @@
 Creates exploratory data visualizations from processed training data.  
 
 Usage:
-    python 04_data_visualization.py <input_path> <output_dir>
+    python s4_data_visualization.py <input_path> <output_dir>
 """
 import click
 import os
