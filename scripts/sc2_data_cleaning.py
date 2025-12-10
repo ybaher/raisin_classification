@@ -1,5 +1,5 @@
 """
-Cleans and processes raw data and outputs clean data
+Cleans and processes raw data and outputs train/test CSV files.
 
 Usage:
     python s2_data_cleanning.py <input_path> <output_path>
@@ -7,54 +7,28 @@ Usage:
 
 import click
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+from src.data_cleaning import clean_data, split_data, scale_features
 
 
 @click.command()
 @click.argument("input_path", type=click.Path(exists=True))
 @click.argument("output_path", type=click.Path())
 def main(input_path, output_path):
-    """
-    Reads raw data, cleans it, transforms it, splits it,
-    and writes processed train/test sets.
-    """
-
-    # -----------------------------
-    # 1. READ RAW DATA
-    # -----------------------------
+    # 1. Read data
     df = pd.read_csv(input_path)
 
-    # -----------------------------
-    # 2. CLEAN DATA
-    # -----------------------------
-    df = df.drop_duplicates()
-    df = df.dropna()
-    df = df.drop(columns=["Unnamed: 0"])
-    df["Area"] = df["Area"].astype(float)
-    df["ConvexArea"] = df["ConvexArea"].astype(float)
-    df["Class"] = df["Class"].astype(str)
+    # 2. Clean data
+    df = clean_data(df)
 
-    # -----------------------------
-    # 3. SPLIT DATA
-    # -----------------------------
-    train, test = train_test_split(df, test_size=0.2, random_state=123)
+    # 3. Split data
+    train, test = split_data(df)
 
-    # -----------------------------
-    # 4. SCALE FEATURES
-    # -----------------------------
-    scaler = StandardScaler()
-    features = df.columns.drop("Class")
+    # 4. Scale features
+    train_scaled, test_scaled = scale_features(train, test)
 
-    train[features] = scaler.fit_transform(train[features])
-
-    test[features] = scaler.transform(test[features])
-
-    # -----------------------------
-    # 5. SAVE OUTPUT FILES
-    # -----------------------------
-    train.to_csv(output_path.replace(".csv", "_train.csv"), index=False)
-    test.to_csv(output_path.replace(".csv", "_test.csv"), index=False)
+    # 5. Save outputs
+    train_scaled.to_csv(output_path.replace(".csv", "_train.csv"), index=False)
+    test_scaled.to_csv(output_path.replace(".csv", "_test.csv"), index=False)
 
     click.echo("Processed train and test files saved.")
 
