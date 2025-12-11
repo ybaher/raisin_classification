@@ -1,4 +1,7 @@
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.data_cleaning import clean_data, split_data, scale_features
 
 
