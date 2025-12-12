@@ -154,12 +154,15 @@ The final report can be found at this [link](https://github.com/ybaher/raisin_cl
 
 ## Dependencies
 
+This project requires the following dependencies:
+
+- Python 3.9
+- Docker
+- Conda
+- The following data science packages:
+
 ```yaml
-name: craisins
-channels:
-  - conda-forge
 dependencies:
-  - python=3.9
   - ipykernel=6.30.1
   - conda-lock=3.0.4
   - pip:
@@ -178,12 +181,7 @@ dependencies:
 
 ## License
 
-The Raisin Classification report is licensed under the
-[Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
-See [the license file](LICENSE.md) for more information. . If
-re-using/re-mixing please provide attribution and link to this webpage.
-The software code contained within this repository is licensed under the
-MIT license. See [the license file](LICENSE.md) for more information.
+This project’s source code is licensed under the MIT License. The documentation, reports, and written materials in this repository are licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. See the [LICENSE](LICENSE) file for details.
 
 ## References
 
