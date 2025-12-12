@@ -159,6 +159,7 @@ Markdown(X.describe().to_markdown())
 ## Analysis
 The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model.
 
+All analysis, visualization, and modeling were conducted in Python [@python] using libraries such as pandas [@pandas], NumPy [@numpy], and scikit-learn [@scikit-learn].
 
 # Exploratory Data Analysis
 
