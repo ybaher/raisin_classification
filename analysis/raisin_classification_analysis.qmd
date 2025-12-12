@@ -157,7 +157,7 @@ Markdown(X.describe().to_markdown())
 
 
 ## Analysis
-The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model.
+The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of `{python} accuracy` with our model, indicating strong performance given the simplicity of the model.
 
 All analysis, visualization, and modeling were conducted in Python [@python] using libraries such as pandas [@pandas], NumPy [@numpy], and scikit-learn [@scikit-learn].
 
@@ -194,16 +194,16 @@ The feature coefficient plot (@fig-coefs-barplot) highlights which variables con
 ![Bar plot of Feature Coefficients.](../results/models/raisin_model_feature_importance.png){#fig-coefs-barplot}
 
 
-The model had an accuracy of `{python} accuracy` and a weighted f1 score of `{python} weighted_f1` .
+The model had an accuracy of `{python} accuracy` and a weighted F1 score of `{python} weighted_f1`.
 
 # Discussion
 
-Overall, the Logistic Regression classifier was effective at distinguishing between Besni and Kecimen raisins, achieving high accuracy and balanced performance across classes. The results support the idea that size-based features, such as Area, Perimeter, and ConvexArea, play a major role in classification. However, because these measurements are highly correlated, the model may rely too heavily on redundant information, which could limit generalizability.
+Overall, the Logistic Regression classifier was effective at distinguishing between Besni and Kecimen raisins, achieving high accuracy and balanced performance across classes. The results support the idea that size-based features, such as area, perimeter, and convex area, play a major role in classification. However, because these measurements are highly correlated, the model may rely too heavily on redundant information, which could limit generalizability.
 
-The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected, because if two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.
+The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected because when two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.
 
 
-Future improvements may include feature engineering to capture non-linear models, training other models such as Tandom FOrests and SVMs, and hyperparameter turning if it is relevant for the chosen model. 
+Future improvements may include feature engineering to better capture non-linear relationships, training other models such as Random Forests and SVMs, and hyperparameter tuning if it is relevant for the chosen model. 
 
 These findings indicate that while the current model performs well for basic classification, there is strong potential for further improvement with more sophisticated modeling techniques and a richer feature set.
 
