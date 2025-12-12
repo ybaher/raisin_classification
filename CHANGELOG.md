@@ -5,17 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
 
 ### Added
 
-- team member names to MIT License
+- Team member names to MIT License
+- Bibtex references for Python, NumPy, pandas, and scikit-learn
+- Cite Python, NumPy, pandas, and scikit-learn in the analysis report's Methods section
 
 ### Changed
 
-- license section of `README.md` file include both MIT and CC BY-NC_ND 4.0 licenses
-- dependencies section of `README.md` to include Docker, Conda, and Python
+- License section of `README.md` file include both MIT and CC BY-NC_ND 4.0 licenses
+- Dependencies section of `README.md` to include Docker, Conda, and Python
+- Feature names in the Discussion section of the analysis report to use plain English instead of dataset variable names
 
 ### Removed
 
