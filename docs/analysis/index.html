@@ -59,7 +59,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-733228ea078e20c7b96c3ff9182bbede.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-14387b38dae4281db58bd7885fe38eab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -369,7 +369,8 @@ Table&nbsp;2: Statistical summary of numerical features in the raisin dataset.
 </section>
 <section id="analysis" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.2</span> Analysis</h2>
-<p>The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model.</p>
+<p>The LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of 0.911 with our model, indicating strong performance given the simplicity of the model.</p>
+<p>All analysis, visualization, and modeling were conducted in Python <span class="citation" data-cites="python">(<a href="#ref-python" role="doc-biblioref">Python Software Foundation 2023</a>)</span> using libraries such as pandas <span class="citation" data-cites="pandas">(<a href="#ref-pandas" role="doc-biblioref">McKinney 2010</a>)</span>, NumPy <span class="citation" data-cites="numpy">(<a href="#ref-numpy" role="doc-biblioref">Harris et al. 2020</a>)</span>, and scikit-learn <span class="citation" data-cites="scikit-learn">(<a href="#ref-scikit-learn" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>.</p>
 </section>
 </section>
 <section id="exploratory-data-analysis" class="level1" data-number="4">
@@ -432,13 +433,13 @@ Figure&nbsp;5: Bar plot of Feature Coefficients.
 </figcaption>
 </figure>
 </div>
-<p>The model had an accuracy of 0.911 and a weighted f1 score of 0.911 .</p>
+<p>The model had an accuracy of 0.911 and a weighted F1 score of 0.911.</p>
 </section>
 <section id="discussion" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Discussion</h1>
-<p>Overall, the Logistic Regression classifier was effective at distinguishing between Besni and Kecimen raisins, achieving high accuracy and balanced performance across classes. The results support the idea that size-based features, such as Area, Perimeter, and ConvexArea, play a major role in classification. However, because these measurements are highly correlated, the model may rely too heavily on redundant information, which could limit generalizability.</p>
-<p>The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected, because if two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.</p>
-<p>Future improvements may include feature engineering to capture non-linear models, training other models such as Tandom FOrests and SVMs, and hyperparameter turning if it is relevant for the chosen model.</p>
+<p>Overall, the Logistic Regression classifier was effective at distinguishing between Besni and Kecimen raisins, achieving high accuracy and balanced performance across classes. The results support the idea that size-based features, such as area, perimeter, and convex area, play a major role in classification. However, because these measurements are highly correlated, the model may rely too heavily on redundant information, which could limit generalizability.</p>
+<p>The confusion matrix suggests that some samples possess overlapping characteristics that blur the distinction between varieties. This is expected because when two raisins share similar shape and size profiles, a linear classifier may struggle to separate them cleanly. Incorporating less correlated features such as texture, color, or weight could help the model capture subtle differences that the current dataset does not include.</p>
+<p>Future improvements may include feature engineering to better capture non-linear relationships, training other models such as Random Forests and SVMs, and hyperparameter tuning if it is relevant for the chosen model.</p>
 <p>These findings indicate that while the current model performs well for basic classification, there is strong potential for further improvement with more sophisticated modeling techniques and a richer feature set.</p>
 </section>
 <section id="references" class="level1" data-number="7">
@@ -452,8 +453,20 @@ Figure&nbsp;5: Bar plot of Feature Coefficients.
 <div id="ref-cinar2019raisin" class="csl-entry" role="listitem">
 Çinar, İ̇lkay, Murat Koklu, and Sakir Tasdemir. 2019. <span>“Raisin Dataset.”</span> <a href="https://archive.ics.uci.edu/dataset/850/raisin" class="uri">https://archive.ics.uci.edu/dataset/850/raisin</a>.
 </div>
+<div id="ref-numpy" class="csl-entry" role="listitem">
+Harris, Charles R. et al. 2020. <span>“Array Programming with NumPy.”</span> <em>Nature</em>.
+</div>
+<div id="ref-pandas" class="csl-entry" role="listitem">
+McKinney, Wes. 2010. <span>“Data Structures for Statistical Computing in Python.”</span>
+</div>
 <div id="ref-olmo2019raisins" class="csl-entry" role="listitem">
 Olmo-Cunillera, Alexandra et al. 2019. <span>“Is Eating Raisins Healthy?”</span> <em>Nutrients</em> 12 (1): 54. <a href="https://doi.org/10.3390/nu12010054">https://doi.org/10.3390/nu12010054</a>.
+</div>
+<div id="ref-scikit-learn" class="csl-entry" role="listitem">
+Pedregosa, Fabian et al. 2011. <span>“Scikit-Learn: Machine Learning in Python.”</span> <em>Journal of Machine Learning Research</em> 12: 2825–30.
+</div>
+<div id="ref-python" class="csl-entry" role="listitem">
+Python Software Foundation. 2023. <span>“Python: A Dynamic, Open Source Programming Language.”</span> <a href="https://www.python.org/" class="uri">https://www.python.org/</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

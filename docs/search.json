@@ -32,6 +32,6 @@
     "href": "analysis/index.html#analysis",
     "title": "Crazy Raisins: A Raisin Classification Adventure",
     "section": "3.2 Analysis",
-    "text": "3.2 Analysis\nThe LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of {{accuracy}} with our model, , indicating strong performance given the simplicity of the model."
+    "text": "3.2 Analysis\nThe LogisticRegression algorithm was used to build the classification model to predict the species of a raisin given its measured shape properties. The data was split 75% into training set and 25% into test set. We obtained an accuracy of 0.911 with our model, indicating strong performance given the simplicity of the model.\nAll analysis, visualization, and modeling were conducted in Python (Python Software Foundation 2023) using libraries such as pandas (McKinney 2010), NumPy (Harris et al. 2020), and scikit-learn (Pedregosa et al. 2011)."
   }
 ]
