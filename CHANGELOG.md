@@ -9,13 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Team member names to MIT License
-- Bibtex references for Python, NumPy, pandas, and scikit-learn
-- Cite Python, NumPy, pandas, and scikit-learn in the analysis report's Methods section
+- Team member names to MIT License [Issue #38](https://github.com/ybaher/raisin_classification/issues/37)
+- Bibtex references for Python, NumPy, pandas, and scikit-learn [Issue #39](https://github.com/ybaher/raisin_classification/issues/39)
+- Cite Python, NumPy, pandas, and scikit-learn in the analysis report's Methods section 
 
 ### Changed
 
-- License section of `README.md` file include both MIT and CC BY-NC_ND 4.0 licenses
+- License section of `README.md` file include both MIT and CC BY-NC_ND 4.0 licenses [Issue #37](https://github.com/ybaher/raisin_classification/issues/37)
 - Dependencies section of `README.md` to include Docker, Conda, and Python
 - Feature names in the Discussion section of the analysis report to use plain English instead of dataset variable names
 
