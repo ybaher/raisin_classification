@@ -7,3 +7,7 @@ docs/site_libs/bootstrap/bootstrap-733228ea078e20c7b96c3ff9182bbede.min.css
 docs/site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css
 scripts/__pycache__/sc3_data_validation.cpython-39.pyc
 scripts/tests/__pycache__/test_data_validation.cpython-39-pytest-8.4.2.pyc
+**/__pycache__/
+tests/.pytest_cache
+.pytest_cache
+tests/__pycache__
