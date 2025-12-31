@@ -173,12 +173,14 @@ dependencies:
       - numpy==2.0.2
       - scikit-learn==1.6.1
       - matplotlib==3.9.1
-      - click
+      - click==8.3.1
       - jupyterlab==4.5.0
       - vl-convert-python
-      - tabulate
+      - tabulate==0.9.0
 ```
-
+## Dev Notes
+### Running tests
+Run the same `docker compose up` command as described above in the "Running the Full Analysis" section. Tests are run using `pytest` command in the root of the test directory. More info can be found in the readme within the `tests/` directory.
 ## License
 
 This project’s source code is licensed under the MIT License. The documentation, reports, and written materials in this repository are licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. See the [LICENSE](LICENSE) file for details.
