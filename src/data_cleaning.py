@@ -27,13 +27,6 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def split_data(df: pd.DataFrame, test_size=0.2, seed=123):
-    """
-    Split data into train and test sets.
-    """
-    return train_test_split(df, test_size=test_size, random_state=seed)
-
-
 def scale_features(train_df, test_df, target_col="Class"):
     """
     Scale all features except the target column.
