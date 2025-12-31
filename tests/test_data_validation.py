@@ -94,6 +94,27 @@ def test_validate_target_correlation():
     result = validate_target_correlation(df)
     assert "Area" in result
 
+def test_validate_file_format_errors():
+    """Test that validate_file_format raises AttributeError for invalid input types."""
+    with pytest.raises(AttributeError):
+        validate_file_format(None)
+    with pytest.raises(AttributeError):
+        validate_file_format(123)
+
+def test_validate_columns_errors():
+    """Test that validate_columns raises AttributeError for invalid input types."""
+    with pytest.raises(AttributeError):
+        validate_columns(None)
+    with pytest.raises(AttributeError):
+        validate_columns("not a dataframe")
+
+def test_validate_target_correlation_errors():
+    """Test that validate_target_correlation raises AttributeError for invalid input types."""
+    with pytest.raises(AttributeError):
+        validate_target_correlation(None)
+    with pytest.raises(AttributeError):
+        validate_target_correlation("not a dataframe")
+
 @pytest.mark.skipif(not os.path.exists(DATA_FILE), reason="train_df.csv not found")
 def test_all_on_real_file():
     df = pd.read_csv(DATA_FILE)
