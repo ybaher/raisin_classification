@@ -17,6 +17,7 @@ def validate_columns(df: pd.DataFrame) -> bool:
     return set(df.columns) == set(EXPECTED_COLS)
 
 def validate_data_types(df: pd.DataFrame) -> bool:
+    """Validate data types of each column."""
     schema = pa.DataFrameSchema({
         "Area": pa.Column(float),
         "MajorAxisLength": pa.Column(float),
@@ -38,6 +39,7 @@ def check_nan(series: pd.Series) -> bool:
     return ~series.isna().any()
     
 def validate_missing_values(df: pd.DataFrame) -> bool:
+    """Validate no missing values in specified columns."""
     schema = pa.DataFrameSchema({
         "Area": pa.Column(float, pa.Check(check_nan, element_wise=False), nullable=True),
         "MajorAxisLength": pa.Column(float, pa.Check(check_nan, element_wise=False), nullable=True),
@@ -56,7 +58,7 @@ def validate_missing_values(df: pd.DataFrame) -> bool:
     
     
 def validate_duplicates(df: pd.DataFrame) -> bool:
-    # Validate no duplicates
+    """Validate no duplicate rows in specified columns."""
     duplicate_schema = pa.DataFrameSchema(
         columns={
             "Area": pa.Column(pa.Float, nullable=False),

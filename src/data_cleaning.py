@@ -6,12 +6,6 @@ from sklearn.preprocessing import StandardScaler
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clean the raw raisin dataset.
-
-    Steps:
-    - Remove duplicates
-    - Drop missing values
-    - Drop 'Unnamed: 0'
-    - Convert column types
     """
     df = df.drop_duplicates()
     df = df.dropna()
