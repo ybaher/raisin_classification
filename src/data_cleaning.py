@@ -6,12 +6,6 @@ from sklearn.preprocessing import StandardScaler
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clean the raw raisin dataset.
-
-    Steps:
-    - Remove duplicates
-    - Drop missing values
-    - Drop 'Unnamed: 0'
-    - Convert column types
     """
     df = df.drop_duplicates()
     df = df.dropna()
@@ -25,13 +19,6 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df["Class"] = df["Class"].astype(str)
 
     return df
-
-
-def split_data(df: pd.DataFrame, test_size=0.2, seed=123):
-    """
-    Split data into train and test sets.
-    """
-    return train_test_split(df, test_size=test_size, random_state=seed)
 
 
 def scale_features(train_df, test_df, target_col="Class"):

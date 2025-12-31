@@ -107,35 +107,10 @@ Copy the full URL (including the token) and paste it into your browser to open J
 
 <img src="figures/terminal.png" width="500"/>
 
-**Step 4: Run the following commands one at a time**
-```
-python scripts/sc1_data_acquisition.py \
-    data/raisin.csv \
-    data/raw/raisin_data.csv
-```
-```
-python scripts/sc2_data_cleaning.py \
-    data/raw/raisin_data.csv \
-    data/processed/raisin_cleaned.csv
-```
-```
-python scripts/sc3_data_validation.py \
-    data/processed/raisin_cleaned_train.csv
-```
-```
-python scripts/sc4_data_visualization.py \
-    data/processed/raisin_cleaned.csv \
-    results/figures
-```
-```
-python scripts/sc5_model_fitting.py \
-    data/processed/raisin_cleaned_train.csv \
-    data/processed/raisin_cleaned_test.csv \
-    results/models/raisin_model
-```
-```
-quarto render ./analysis/raisin_classification_analysis.qmd --to html
-quarto render ./analysis/raisin_classification_analysis.qmd --to pdf
+**Step 4: Run the makefile**
+Within the root of the directory, run the following command in the terminal to execute the full analysis:
+
+```make all
 ```
 
 Note: Windows/MacOS users may need to install TinyTex to successfully render PDF
@@ -145,6 +120,10 @@ quarto install tinytex
 ```
 
 ## Clean up
+To clean up the analysis, you can run the command 
+```make clean
+```
+ in the terminal within the Jupyter environment.
 
 To shut down the container and clean everything up, type `Ctrl + C` in the terminal where you launched it, then run `docker compose rm`.
 
@@ -173,12 +152,14 @@ dependencies:
       - numpy==2.0.2
       - scikit-learn==1.6.1
       - matplotlib==3.9.1
-      - click
+      - click==8.3.1
       - jupyterlab==4.5.0
       - vl-convert-python
-      - tabulate
+      - tabulate==0.9.0
 ```
-
+## Dev Notes
+### Running tests
+Run the same `docker compose up` command as described above in the "Running the Full Analysis" section. Tests are run using `pytest` command in the root of the test directory. More info can be found in the readme within the `tests/` directory.
 ## License
 
 This project’s source code is licensed under the MIT License. The documentation, reports, and written materials in this repository are licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. See the [LICENSE](LICENSE) file for details.

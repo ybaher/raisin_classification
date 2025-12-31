@@ -9,8 +9,9 @@ import sys
 import os
 import click
 import pandas as pd
+from sklearn.model_selection import train_test_split
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.data_cleaning import clean_data, split_data, scale_features
+from src.data_cleaning import clean_data, scale_features
 
 
 @click.command()
@@ -24,7 +25,7 @@ def main(input_path, output_path):
     df = clean_data(df)
 
     # 3. Split data
-    train, test = split_data(df)
+    train, test = train_test_split(df)
 
     # 4. Scale features
     train_scaled, test_scaled = scale_features(train, test)
