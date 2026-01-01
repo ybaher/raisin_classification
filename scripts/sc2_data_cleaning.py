@@ -25,7 +25,7 @@ def main(input_path, output_path):
     df = clean_data(df)
 
     # 3. Split data
-    train, test = train_test_split(df)
+    train, test = train_test_split(df, test_size=0.2, random_state=123)
 
     # 4. Scale features
     train_scaled, test_scaled = scale_features(train, test)
