@@ -7,6 +7,10 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clean the raw raisin dataset.
     """
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     df = df.drop_duplicates()
     df = df.dropna()
 
@@ -25,6 +29,12 @@ def scale_features(train_df, test_df, target_col="Class"):
     """
     Scale all features except the target column.
     """
+    if train_df is None or test_df is None:
+        raise ValueError("Input DataFrames cannot be None")
+    if train_df.empty or test_df.empty:
+        raise ValueError("Input DataFrames cannot be empty")
+    if target_col not in train_df.columns or target_col not in test_df.columns:
+        raise ValueError(f"Target column '{target_col}' not found in DataFrames")
     scaler = StandardScaler()
 
     features = train_df.columns.drop(target_col)

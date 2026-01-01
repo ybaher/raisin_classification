@@ -18,6 +18,10 @@ def validate_columns(df: pd.DataFrame) -> bool:
 
 def validate_data_types(df: pd.DataFrame) -> bool:
     """Validate data types of each column."""
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     schema = pa.DataFrameSchema({
         "Area": pa.Column(float),
         "MajorAxisLength": pa.Column(float),
@@ -40,6 +44,10 @@ def check_nan(series: pd.Series) -> bool:
     
 def validate_missing_values(df: pd.DataFrame) -> bool:
     """Validate no missing values in specified columns."""
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     schema = pa.DataFrameSchema({
         "Area": pa.Column(float, pa.Check(check_nan, element_wise=False), nullable=True),
         "MajorAxisLength": pa.Column(float, pa.Check(check_nan, element_wise=False), nullable=True),
@@ -59,6 +67,10 @@ def validate_missing_values(df: pd.DataFrame) -> bool:
     
 def validate_duplicates(df: pd.DataFrame) -> bool:
     """Validate no duplicate rows in specified columns."""
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     duplicate_schema = pa.DataFrameSchema(
         columns={
             "Area": pa.Column(pa.Float, nullable=False),
@@ -81,6 +93,10 @@ def validate_duplicates(df: pd.DataFrame) -> bool:
     
 def validate_high_correlation(df: pd.DataFrame) -> list:
     """Identify features correlated >0.9 with other features."""
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     corr_matrix = df.select_dtypes(include=[np.number]).corr().abs()
     upper_tri = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
     to_drop = [column for column in upper_tri.columns if any(upper_tri[column] > 0.9)]
@@ -88,6 +104,10 @@ def validate_high_correlation(df: pd.DataFrame) -> list:
 
 def validate_target_correlation(df: pd.DataFrame) -> list:
     """Return features highly correlated (>0.5) with 'Class'."""
+    if df is None or df.empty:
+        raise ValueError("Input DataFrame is empty or None")
+    if df.type != pd.DataFrame:
+        raise TypeError("Input is not a pandas DataFrame")
     df_encoded = df.copy()
     df_encoded['Class'] = df_encoded['Class'].astype('category').cat.codes
     corr_with_target = df_encoded.corr()['Class'].abs()
